@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.breadcrumb {
+    /* background-color: grey; */
+    background-image: url("img/wall\ paper2.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 20px 10px;
+    text-align: center;
+}
+
+.page-title {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 60px;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 18px;
+    font-style: italic;
+}
+
+.breadcrumb span {
+    color: white;
+    font-size: 18px;
+}
+
+@media (max-width: 700px) {
+    .breadcrumb {
+        text-align: center;
+    }
+
+    .page-title {
+        font-size: 35px;
+    }
+}

@@ -1,0 +1,23 @@
+.partners {
+  text-align: center;
+}
+
+.partners h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.partners ul {
+  list-style: none;
+  padding: 0;
+}
+
+.partners ul li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.partners ul li img {
+  width: 100px;
+  height: 100px;
+}
