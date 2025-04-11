@@ -3,7 +3,14 @@ import { Sidenav, Nav } from 'rsuite';
 import { Link } from 'react-router-dom';
 import DashboardIcon from '@rsuite/icons/legacy/Dashboard';
 import GroupIcon from '@rsuite/icons/legacy/Group';
-import GearCircleIcon from '@rsuite/icons/legacy/GearCircle';
+import GearIcon from '@rsuite/icons/Gear';
+import StorageIcon from '@rsuite/icons/Storage';
+import UserBadgeIcon from '@rsuite/icons/UserBadge';
+import PeoplesMapIcon from '@rsuite/icons/PeoplesMap';
+import EmailIcon from '@rsuite/icons/Email';
+import ModelIcon from '@rsuite/icons/Model';
+import TaskIcon from '@rsuite/icons/Task';
+import DonutChartIcon from '@rsuite/icons/DonutChart';
 import 'rsuite/dist/rsuite.min.css';
 import profileimage from '../../image/profileimage.svg';
 import share from '../../image/share.svg';
@@ -13,8 +20,8 @@ const AccountMenu = () => {
   const [activeKey, setActiveKey] = React.useState('1');
 
   return (
-    <div className='hidden lg:block' style={{ width: 200 }}>
-      <Sidenav expanded={expanded} defaultOpenKeys={['6']}>
+    <div className='hidden lg:block' style={{ width: 240 }}>
+      <Sidenav  defaultOpenKeys={['6']}>
         <Sidenav.Body>
           <div className="bg-grey-background rounded-2xl pt-6 pb-6 flex flex-col gap-6 items-center justify-start relative overflow-x-hidden">
             <div className="flex flex-col gap-4 items-center justify-start shrink-0 relative">
@@ -40,28 +47,60 @@ const AccountMenu = () => {
           <Nav activeKey={activeKey} onSelect={setActiveKey}>
             <Nav.Item eventKey="0">
             </Nav.Item>
-            <Nav.Item as={Link} to="/app/myaccount" eventKey="1" icon={<DashboardIcon />}>
+            <Nav.Item as={Link} to="/app/myaccount" eventKey="1" icon={<StorageIcon />}>
               My Courses
             </Nav.Item>
-            <Nav.Item as={Link} to="/app/assessment" eventKey="2" icon={<GroupIcon />}>
+            <Nav.Item as={Link} to="/app/assessment" eventKey="2" icon={<TaskIcon />}>
               Assessment
             </Nav.Item>
-            <Nav.Item as={Link} to="/app/message" eventKey="3" icon={<GroupIcon />}>
+            <Nav.Item as={Link} to="/app/message" eventKey="3" icon={<EmailIcon />}>
               Message
             </Nav.Item>
-            <Nav.Item as={Link} to="/app/certificates" eventKey="4" icon={<GroupIcon />}>
+            <Nav.Item as={Link} to="/app/certificates" eventKey="4" icon={<UserBadgeIcon />}>
               Certificates
             </Nav.Item>
-            <Nav.Item as={Link} to="/app/myreviews" eventKey="5" icon={<GroupIcon />}>
+            <Nav.Item as={Link} to="/app/myreviews" eventKey="5" icon={<ModelIcon />}>
               My Reviews
             </Nav.Item>
 
-            <Nav.Menu
-              placement="rightStart"
-              eventKey="6"
-              title="Settings"
-              icon={<GearCircleIcon />}
-            >
+            {/* For Courses */}
+            <Nav.Menu placement="rightStart" eventKey="7" title="Manage Courses" icon={<StorageIcon />} >
+              <Nav.Item as={Link} to="/app/managecourses" eventKey="7-1">
+                Manage Courses
+              </Nav.Item>
+              <Nav.Item as={Link} to="/app/createcourses" eventKey="7-2">
+                Create a Course
+              </Nav.Item>
+              <Nav.Item as={Link} to="" eventKey="7-3">
+                Assign Course
+              </Nav.Item>
+            </Nav.Menu>
+
+            {/* For User Management */}
+            <Nav.Menu placement="rightStart" eventKey="8" title="Manage Users" icon={<PeoplesMapIcon />} >
+              <Nav.Item as={Link} to="/app/manageusers" eventKey="8-1">
+                All Users
+              </Nav.Item>
+              <Nav.Item as={Link} to="/app/createuser" eventKey="8-2">
+                Create a User
+              </Nav.Item>
+              <Nav.Item as={Link} to="" eventKey="8-3">
+                User Role
+              </Nav.Item>
+            </Nav.Menu>
+
+            {/* For Coupon Management */}
+            <Nav.Menu placement="rightStart" eventKey="9" title="Manage Coupons" icon={<DonutChartIcon />} >
+              <Nav.Item as={Link} to="/app/managecoupons" eventKey="9-1">
+                All Coupons
+              </Nav.Item>
+              <Nav.Item as={Link} to="/app/createcoupon" eventKey="9-2">
+                Create a Coupon
+              </Nav.Item>
+            </Nav.Menu>
+
+            {/* For settings */}
+            <Nav.Menu placement="rightStart" eventKey="6" title="Settings" icon={<GearIcon />} >
               <Nav.Item as={Link} to="/app/profile" eventKey="6-1">
                 Profile
               </Nav.Item>
@@ -75,9 +114,9 @@ const AccountMenu = () => {
                 Versions
               </Nav.Item>
             </Nav.Menu>
+
           </Nav>
         </Sidenav.Body>
-        <Sidenav.Toggle onToggle={(expanded) => setExpanded(expanded)} />
       </Sidenav>
     </div>
   );

@@ -1,6 +1,8 @@
 import React from 'react';
 import horizontaldots from '../../image/horizontaldots.svg';
 import fiveratings from '../../image/fiveratings.svg'
+import { Dropdown } from 'rsuite';
+import MoreIcon from '@rsuite/icons/More';
 
 function ReviewMain() {
   return (
@@ -14,17 +16,20 @@ function ReviewMain() {
     </div>
 
     {/* Review Section */}
-    <div className="bg-white rounded-2xl border-solid border-grey-border border h-[195px] relative overflow-hidden px-4 py-3 m-6">
-        <img className="w-6 h-6 overflow-visible absolute top-4 right-6 cursor-pointer"
-            src={horizontaldots}
-        />
-        <div className="flex flex-col gap-4 items-start justify-start">
-            <div className="flex flex-row gap-2 items-center justify-start shrink-0 relative">
-                <div className="text-grey-900 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
-                    Course Name:
+    <div className="w-full bg-white rounded-2xl border-solid border-grey-border border relative overflow-hidden px-4 py-3 m-6 mx-auto">
+        
+        <div className="flex flex-col items-start justify-start">
+            <div className='w-full flex flex-row gap-2 items-center justify-between shrink-0 relative'>
+                <div className="flex flex-row gap-2 items-center justify-start shrink-0 relative">
+                    <div className="text-grey-900 text-left font-heading-5-subheading-font-family text-heading-5-subheading-font-size leading-heading-5-subheading-line-height font-heading-5-subheading-font-weight relative">
+                        Beginner’s Guide to Design
+                    </div>
                 </div>
-                <div className="text-grey-900 text-left font-heading-5-subheading-font-family text-heading-5-subheading-font-size leading-heading-5-subheading-line-height font-heading-5-subheading-font-weight relative">
-                    Beginner’s Guide to Design
+                <div className=''>
+                    <Dropdown placement="leftStart" title="" noCaret icon={<MoreIcon style={{fontWeight: "bold,", fontSize: "24px"}} />}>
+                        <Dropdown.Item>Edit Review</Dropdown.Item>
+                        <Dropdown.Item>Delete Review</Dropdown.Item>
+                    </Dropdown>
                 </div>
             </div>
             <div className="flex flex-row gap-2 items-center justify-start shrink-0 relative">

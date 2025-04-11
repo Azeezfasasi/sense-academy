@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import senselogo from '../../image/senselogo.png'
 import { Link } from 'react-router-dom';
 import heart from '../../image/heart.svg';
@@ -6,6 +6,7 @@ import bell from '../../image/bell.svg';
 import cart from '../../image/cart.svg';
 import profileimage from '../../image/profileimage.svg';
 import HamburgerMenu from './MobileMenu';
+import { Button, Menu, Portal, CloseButton, Dialog } from "@chakra-ui/react"
 
 function AccountHeader() {
   return (
@@ -36,14 +37,69 @@ function AccountHeader() {
             <Link to="" className="flex flex-row items-start justify-start relative">
                 <img className="shrink-0 w-6 h-6 relative overflow-visible" src={heart} />
             </Link>
-            <Link to="" className="flex flex-row gap-2.5 items-start justify-start shrink-0 relative">
-                <img className="shrink-0 w-6 h-6 relative overflow-visible"
-                src={bell}
-                />
-            </Link>
-            <button className="flex flex-row justify-center items-center rounded-[50%] shrink-0 w-10 h-10 relative border cursor-pointer">
-                <img src={profileimage} alt="" className='' />
-            </button>
+            {/* Notification pop up */}
+            <Dialog.Root scrollBehavior="inside" size="sm">
+                <Dialog.Trigger asChild>
+                    <Button variant="outline">
+                        <img className="shrink-0 w-6 h-6 relative overflow-visible"
+                        src={bell}
+                        />
+                    </Button>
+                </Dialog.Trigger>
+                <Portal>
+                    <Dialog.Backdrop />
+                    <Dialog.Positioner>
+                        <Dialog.Content>
+                            <Dialog.Header>
+                                <Dialog.Title>
+                                    <p className='text-[20px] md:text-[24px]'>Your Notifications</p>
+                                </Dialog.Title>
+                            </Dialog.Header>
+                            <Dialog.CloseTrigger asChild>
+                                <CloseButton size="sm" />
+                            </Dialog.CloseTrigger>
+                            <Dialog.Body>
+                            <ul>
+                                <li>one</li>
+                                <li>one</li>
+                                <li>one</li>
+                                <li>one</li>
+                            </ul>
+                            </Dialog.Body>
+                        </Dialog.Content>
+                    </Dialog.Positioner>
+                </Portal>
+            </Dialog.Root>
+
+            {/* Profile dropdown */}
+            <Menu.Root>
+                <Menu.Trigger asChild>
+                    <Button variant="outline" size="sm">
+                        <img src={profileimage} alt="" className='w-10 h-10'/>
+                    </Button>
+                </Menu.Trigger>
+                <Portal>
+                    <Menu.Positioner>
+                        <Menu.Content>
+                            <Menu.Item value="assessment">
+                                <Link to="/app/assessment" style={{textDecoration: "none", color: "black"}}>Assessment</Link>
+                            </Menu.Item>
+                            <Menu.Item value="certificates">
+                                <Link Link to="/app/certificates" style={{textDecoration: "none", color: "black"}}>Certificates</Link>
+                            </Menu.Item>
+                            <Menu.Item value="profile">
+                                <Link Link to="/app/profile" style={{textDecoration: "none", color: "black"}}>Profile</Link>
+                            </Menu.Item>
+                            <Menu.Item value="settings">
+                                <Link Link to="" style={{textDecoration: "none", color: "black"}}>Settings</Link>
+                            </Menu.Item>
+                            <Menu.Item value="logout">
+                                <Link Link to="/" style={{textDecoration: "none", color: "red"}}>Logout</Link>
+                            </Menu.Item>
+                        </Menu.Content>
+                    </Menu.Positioner>
+                </Portal>
+            </Menu.Root>
         </div>        
     </div>
 

@@ -8,12 +8,20 @@ import share from '../../image/share.svg';
 import senselogo from '../../image/senselogo.png'
 
 const MobileMenu = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [submenuOpen, setSubmenuOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const [submenuOpen, setSubmenuOpen] = useState(false);
+  const [manageCoursesOpen, setManageCoursesOpen] = useState(false);
+  const [manageUsersOpen, setManageUsersOpen] = useState(false);
+  const [manageCouponsOpen, setManageCouponsOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const location = useLocation()
 
   const toggleMenu = () => setIsOpen(!isOpen)
   const toggleSubmenu = () => setSubmenuOpen(!submenuOpen)
+  const toggleManageCourses = () => setManageCoursesOpen(!manageCoursesOpen);
+  const toggleManageUsers = () => setManageUsersOpen(!manageUsersOpen);
+  const toggleManageCoupons = () => setManageCouponsOpen(!manageCouponsOpen);
+  const toggleSettings = () => setSettingsOpen(!settingsOpen);
 
   const linkClasses = (isActive) =>
     `flex items-center space-x-2 p-2 rounded-md border text-gray-800 ${
@@ -75,30 +83,95 @@ const MobileMenu = () => {
             <span>My Reviews</span>
           </NavLink>
 
-          {/* Menu with submenu */}
+          {/* Manage courses with independent submenu */}
           <div>
-            <button
-              onClick={toggleSubmenu}
-              className={`w-full flex justify-between items-center p-2 rounded-md ${
-                location.pathname.startsWith('/courses') ? 'bg-blue-100 text-blue-600 font-medium' : ''
-              }`}
-            >
+            <button onClick={toggleManageCourses} className={`w-full flex justify-between items-center p-2 rounded-md ${location.pathname.startsWith('/courses') ? 'bg-blue-100 text-blue-600 font-medium' : '' }`} >
+              <div className="flex items-center space-x-2">
+                <Settings size={20} />
+                <span>Manage Courses</span>
+              </div>
+              {manageCoursesOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+            </button>
+            {manageCoursesOpen && (
+              <div className="ml-6 mt-2 flex flex-col space-y-1 text-sm text-gray-600">
+                <NavLink to="" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
+                  <UserPen size={20} />
+                  Manage Courses
+                </NavLink>
+                <NavLink to="" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
+                  <UserPen size={20} />
+                  Create Courses
+                </NavLink>
+                <NavLink to="" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
+                  <UserPen size={20} />
+                  Assign Courses
+                </NavLink>
+              </div>
+            )}
+          </div>
+
+          {/* Manage users with independent submenu */}
+          <div>
+            <button onClick={toggleManageUsers} className={`w-full flex justify-between items-center p-2 rounded-md ${location.pathname.startsWith('/users') ? 'bg-blue-100 text-blue-600 font-medium' : '' }`} >
+              <div className="flex items-center space-x-2">
+                <Settings size={20} />
+                <span>Manage Users</span>
+              </div>
+              {manageUsersOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+            </button>
+            {manageUsersOpen && (
+              <div className="ml-6 mt-2 flex flex-col space-y-1 text-sm text-gray-600">
+                <NavLink to="" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
+                  <UserPen size={20} />
+                  All Users
+                </NavLink>
+                <NavLink to="" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
+                  <UserPen size={20} />
+                  Create a User
+                </NavLink>
+                <NavLink to="" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
+                  <UserPen size={20} />
+                  User Roles
+                </NavLink>
+              </div>
+            )}
+          </div>
+
+          {/* Manage Coupons with independent submenu */}
+          <div>
+            <button onClick={toggleManageCoupons} className={`w-full flex justify-between items-center p-2 rounded-md ${location.pathname.startsWith('/coupons') ? 'bg-blue-100 text-blue-600 font-medium' : '' }`} >
+              <div className="flex items-center space-x-2">
+                <Settings size={20} />
+                <span>Manage Coupons</span>
+              </div>
+              {manageCouponsOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+            </button>
+            {manageCouponsOpen && (
+              <div className="ml-6 mt-2 flex flex-col space-y-1 text-sm text-gray-600">
+                <NavLink to="" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
+                  <UserPen size={20} />
+                  All Coupons
+                </NavLink>
+                <NavLink to="" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
+                  <UserPen size={20} />
+                  Create a Coupon
+                </NavLink>
+              </div>
+            )}
+          </div>
+
+          {/* Settings with independent submenu */}
+          <div>
+            <button onClick={toggleSettings} className={`w-full flex justify-between items-center p-2 rounded-md ${location.pathname === '/app/profile' ? 'bg-blue-100 text-blue-600 font-medium' : '' }`} >
               <div className="flex items-center space-x-2">
                 <Settings size={20} />
                 <span>Settings</span>
               </div>
-              {submenuOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+              {settingsOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
             </button>
-            {submenuOpen && (
+            {settingsOpen && (
               <div className="ml-6 mt-2 flex flex-col space-y-1 text-sm text-gray-600">
-                <NavLink
-                  to="/app/profile"
-                  className={({ isActive }) =>
-                    `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${
-                      isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'
-                    }`
-                  }
-                >
+                <NavLink to="/app/profile" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
                   <UserPen size={20} />
                   Profile
                 </NavLink>

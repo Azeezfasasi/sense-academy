@@ -1,9 +1,8 @@
+import AccountHeader from '@/assets/components/account-components/AccountHeader'
+import AccountMenu from '@/assets/components/account-components/AccountMenu'
 import React from 'react'
-import AccountHeader from '../assets/components/account-components/AccountHeader'
-import AccountMenu from '../assets/components/account-components/AccountMenu'
-import ProfileMain from '../assets/components/account-components/ProfileMain';
 
-function Profile() {
+function ManageUsers() {
   return (
     <>
     <AccountHeader />
@@ -12,11 +11,11 @@ function Profile() {
         <AccountMenu />
       </aside>
       <section className="w-full px-4">
-        <ProfileMain />
+        <h2>Manage Users</h2>
       </section>
     </main>
     </>
   )
 }
 
-export default Profile;
+export default ManageUsers

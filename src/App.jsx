@@ -16,6 +16,12 @@ import MyReviews from "./app/MyReviews";
 import Assessment from "./app/Assessment";
 import Profile from "./app/Profile";
 import CoursePreview from "./app/CoursePreview";
+import ManageCourses from "./app/ManageCourses";
+import CreateCourse from "./app/CreateCourse";
+import ManageUsers from "./app/ManageUsers";
+import CreateUser from "./app/CreateUser";
+import ManageCoupons from "./app/ManageCoupons";
+import CreateCoupon from "./app/CreateCoupon";
 
 
 function App() {
@@ -39,6 +45,12 @@ function App() {
         <Route path="/app/myreviews" element={<MyReviews />} />
         <Route path="/app/assessment" element={<Assessment />} />
         <Route path="/app/profile" element={<Profile />} />
+        <Route path="/app/managecourses" element={<ManageCourses />} />
+        <Route path="/app/createcourses" element={<CreateCourse />} />
+        <Route path="/app/manageusers" element={<ManageUsers />} />
+        <Route path="/app/createuser" element={<CreateUser />} />
+        <Route path="/app/managecoupons" element={<ManageCoupons />} />
+        <Route path="/app/createcoupon" element={<CreateCoupon />} />
       </Routes>
     </Router>
     </>
