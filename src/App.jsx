@@ -15,6 +15,7 @@ import Certificates from "./app/Certificates";
 import MyReviews from "./app/MyReviews";
 import Assessment from "./app/Assessment";
 import Profile from "./app/Profile";
+import CoursePreview from "./app/CoursePreview";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Route path="/app/coursedetails" element={<CourseSingle />} />
         <Route path="/app/myaccount" element={<MyAccount />} />
         <Route path="/app/mycourse" element={<MyCourses />} />
+        <Route path="/app/coursepreview" element={<CoursePreview />} />
         <Route path="/app/message" element={<Message/>} />
         <Route path="/app/certificates" element={<Certificates />} />
         <Route path="/app/myreviews" element={<MyReviews />} />
