@@ -1,5 +1,6 @@
 import AccountHeader from '@/assets/components/account-components/AccountHeader'
 import AccountMenu from '@/assets/components/account-components/AccountMenu'
+import CourseCreationForm from '@/assets/components/account-components/CourseCreationForm'
 import React from 'react'
 
 function CreateCourse() {
@@ -11,7 +12,7 @@ function CreateCourse() {
         <AccountMenu />
       </aside>
       <section className="w-full px-4">
-        <h2>Create a Course</h2>
+        <CourseCreationForm />
       </section>
     </main>
     </>

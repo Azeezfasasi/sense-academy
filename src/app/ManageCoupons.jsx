@@ -1,5 +1,6 @@
 import AccountHeader from '@/assets/components/account-components/AccountHeader'
 import AccountMenu from '@/assets/components/account-components/AccountMenu'
+import ManageCouponMain from '@/assets/components/account-components/ManageCouponMain'
 import React from 'react'
 
 function ManageCoupons() {
@@ -11,7 +12,7 @@ function ManageCoupons() {
         <AccountMenu />
       </aside>
       <section className="w-full px-4">
-        <h2>Manage Coupons</h2>
+        <ManageCouponMain />
       </section>
     </main>
     </>

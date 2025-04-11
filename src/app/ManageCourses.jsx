@@ -1,5 +1,6 @@
 import AccountHeader from '@/assets/components/account-components/AccountHeader'
 import AccountMenu from '@/assets/components/account-components/AccountMenu'
+import ManageCoursesMain from '@/assets/components/account-components/ManageCoursesMain'
 import React from 'react'
 
 function ManageCourses() {
@@ -11,7 +12,7 @@ function ManageCourses() {
         <AccountMenu />
       </aside>
       <section className="w-full px-4">
-        <h2>Manage Courses</h2>
+        <ManageCoursesMain />
       </section>
     </main>
     </>

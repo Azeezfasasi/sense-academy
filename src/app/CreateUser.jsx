@@ -1,5 +1,6 @@
 import AccountHeader from '@/assets/components/account-components/AccountHeader'
 import AccountMenu from '@/assets/components/account-components/AccountMenu'
+import UserCreationForm from '@/assets/components/account-components/UserCreationForm'
 import React from 'react'
 
 function CreateUser() {
@@ -11,7 +12,7 @@ function CreateUser() {
         <AccountMenu />
       </aside>
       <section className="w-full px-4">
-        <h2>Create User</h2>
+        <UserCreationForm />
       </section>
     </main>
     </>
