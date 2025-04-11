@@ -22,12 +22,14 @@ import ManageUsers from "./app/ManageUsers";
 import CreateUser from "./app/CreateUser";
 import ManageCoupons from "./app/ManageCoupons";
 import CreateCoupon from "./app/CreateCoupon";
+import ScrollToTop from './assets/components/ScrollToTop'
 
 
 function App() {
   return (
     <>
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />

@@ -2,14 +2,25 @@ import React from 'react';
 import play from '../../image/play.svg';
 import { Accordion, Span } from "@chakra-ui/react"
 import { Video } from 'lucide-react';
+import CourseVideoPlayer from './CourseVideoPlayer';
+import ReactPlayer from 'react-player';
 
 function CoursePreviewMain() {
+  const videoSrc = "https://www.w3schools.com/html/mov_bbb.mp4";
+  // const videoSrc = "https://vimeo.com/1074814552/cdaf0e228c";
+
   return (
     <>
     <div className='w-full flex flex-col md:flex-row justify-start md:justify-center gap-7 md:gap-0 md:space-x-12 items-start rounded-2xl'>
       {/* Course video preview */}
-      <div className='w-full md:w-[60%] relative overflow-hidden'>
-          <img className="" src={play} />
+      <div className='w-full h-[400px] md:w-[60%] relative overflow-hidden' >
+        <ReactPlayer
+          url={videoSrc}
+          controls
+          width="100%"
+          height="100%"
+          className="rounded-md"
+        />
       </div>
 
       {/* Course Modules */}
