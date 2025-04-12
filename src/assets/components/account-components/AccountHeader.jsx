@@ -11,7 +11,7 @@ import { Button, Menu, Portal, CloseButton, Dialog } from "@chakra-ui/react"
 function AccountHeader() {
   return (
     <>
-    <div className="flex flex-row justify-between lg:justify-evenly items-center bg-white h-[65px] sticky top-0 z-50 border-b">
+    <div className="flex flex-row justify-between lg:justify-evenly items-center bg-white h-[65px] sticky top-0 z-50 border-b overflow-x-hidden">
 
         {/* Hamburger Menu */}
         <HamburgerMenu />
@@ -33,7 +33,7 @@ function AccountHeader() {
         </Link>
 
         {/* Top Right */}
-        <div className="flex flex-row items-center justify-start gap-8 w-[180px] mr-[-10px] md:mr-0">
+        <div className="flex flex-row items-center justify-start gap-6 md:gap-8 w-[180px] mr-[10px] md:mr-0">
             <Link to="" className="flex flex-row items-start justify-start relative">
                 <img className="shrink-0 w-6 h-6 relative overflow-visible" src={heart} />
             </Link>
@@ -81,20 +81,20 @@ function AccountHeader() {
                 <Portal>
                     <Menu.Positioner>
                         <Menu.Content>
-                            <Menu.Item value="assessment">
-                                <Link to="/app/assessment" style={{textDecoration: "none", color: "black"}}>Assessment</Link>
+                            <Menu.Item value="assessment" as={Link} to="/app/assessment" style={{textDecoration: "none", color: "black", cursor: "pointer"}}>
+                                Assessment
                             </Menu.Item>
-                            <Menu.Item value="certificates">
-                                <Link Link to="/app/certificates" style={{textDecoration: "none", color: "black"}}>Certificates</Link>
+                            <Menu.Item value="certificates" as={Link} to="/app/certificates" style={{textDecoration: "none", color: "black", cursor: "pointer"}}>
+                                Certificates
                             </Menu.Item>
-                            <Menu.Item value="profile">
-                                <Link Link to="/app/profile" style={{textDecoration: "none", color: "black"}}>Profile</Link>
+                            <Menu.Item value="profile" as={Link} to="/app/profile" style={{textDecoration: "none", color: "black", cursor: "pointer"}}>
+                                Profile
                             </Menu.Item>
-                            <Menu.Item value="settings">
-                                <Link Link to="" style={{textDecoration: "none", color: "black"}}>Settings</Link>
+                            <Menu.Item value="settings" as={Link} to="/app/settings" style={{textDecoration: "none", color: "black", cursor: "pointer"}}>
+                                Settings
                             </Menu.Item>
-                            <Menu.Item value="logout">
-                                <Link Link to="/" style={{textDecoration: "none", color: "red"}}>Logout</Link>
+                            <Menu.Item value="logout" as={Link} to="/" style={{textDecoration: "none", color: "red", cursor: "pointer"}}>
+                                Logout
                             </Menu.Item>
                         </Menu.Content>
                     </Menu.Positioner>

@@ -1,32 +1,44 @@
-import React, { useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
-import {
-  Menu, X, ChevronDown, ChevronUp, Home, BookOpen, Settings, User, LogOut, LibraryBig, BookOpenCheck, Mail, Award, Star, UserPen,
-} from 'lucide-react';
+import React, {useState} from 'react';
+import { Sidenav, Nav } from 'rsuite';
+import { Link, useLocation } from 'react-router-dom';
+import GearIcon from '@rsuite/icons/Gear';
+import StorageIcon from '@rsuite/icons/Storage';
+import UserBadgeIcon from '@rsuite/icons/UserBadge';
+import PeoplesMapIcon from '@rsuite/icons/PeoplesMap';
+import EmailIcon from '@rsuite/icons/Email';
+import ModelIcon from '@rsuite/icons/Model';
+import TaskIcon from '@rsuite/icons/Task';
+import DonutChartIcon from '@rsuite/icons/DonutChart';
+import ExitIcon from '@rsuite/icons/Exit';
+import 'rsuite/dist/rsuite.min.css';
 import profileimage from '../../image/profileimage.svg';
 import share from '../../image/share.svg';
-import senselogo from '../../image/senselogo.png'
+import { Menu, X } from 'lucide-react';
 
 const MobileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [submenuOpen, setSubmenuOpen] = useState(false);
-  const [manageCoursesOpen, setManageCoursesOpen] = useState(false);
-  const [manageUsersOpen, setManageUsersOpen] = useState(false);
-  const [manageCouponsOpen, setManageCouponsOpen] = useState(false);
-  const [settingsOpen, setSettingsOpen] = useState(false);
-  const location = useLocation()
 
   const toggleMenu = () => setIsOpen(!isOpen)
-  const toggleSubmenu = () => setSubmenuOpen(!submenuOpen)
-  const toggleManageCourses = () => setManageCoursesOpen(!manageCoursesOpen);
-  const toggleManageUsers = () => setManageUsersOpen(!manageUsersOpen);
-  const toggleManageCoupons = () => setManageCouponsOpen(!manageCouponsOpen);
-  const toggleSettings = () => setSettingsOpen(!settingsOpen);
 
-  const linkClasses = (isActive) =>
-    `flex items-center space-x-2 p-2 rounded-md border text-gray-800 ${
-      isActive ? 'bg-blue-100 text-blue-600 font-medium' : 'hover:text-blue-600'
-    }`
+  const location = useLocation();
+  
+    const pathToKeyMap = {
+      '/app/myaccount': '1',
+      '/app/assessment': '2',
+      '/app/message': '3',
+      '/app/certificates': '4',
+      '/app/myreviews': '5',
+      '/app/managecourses': '6-1',
+      '/app/createcourses': '6-2',
+      '/app/manageusers': '7-1',
+      '/app/createuser': '7-2',
+      '/app/managecoupons': '8-1',
+      '/app/createcoupon': '8-2',
+      '/app/settings': '9-1',
+      '/app/profile': '9-2',
+    };
+  
+    const activeKey = pathToKeyMap[location.pathname] || '1'; // fallback to '1'
 
   return (
     <>
@@ -34,154 +46,110 @@ const MobileMenu = () => {
         {isOpen ? <X size={28} /> : <Menu size={28} />}
       </button>
 
-      <div className={`fixed top-0 left-0 pt-[70px] h-full w-64 bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="rounded-2xl pt-6 pb-0 flex flex-col gap-6 items-center justify-start relative overflow-x-hidden border w-[90%] mx-auto">
-            <div className="flex flex-col gap-4 items-center justify-start shrink-0 relative">
-                <img className="rounded-[50%] shrink-0 w-[100px] h-[100px] relative"
-                        src={profileimage}
-                        />
-                <div className="text-grey-900 text-left font-heading-4-subheading-font-family text-[18px] leading-heading-4-subheading-line-height font-heading-4-subheading-font-weight relative flex items-center justify-start">
-                John Doe
-                </div>
-                <button className="bg-white rounded-lg border-solid border-grey-border border pt-1 pr-6 pb-1 pl-6 flex flex-row gap-1.5 items-center justify-center mt-[-15px] relative">
-                    <div className="text-grey-900 text-left font-button-text-font-family text-[12px] font-button-text-font-weight relative">
-                        Share Profile
-                    </div>
-                    <img className="shrink-0 w-6 h-6 relative overflow-visible"
-                        src={share}
-                    />
-                </button>
-            </div>
-            <div className="border-solid border-grey-border border-t border-r-[0] border-b-[0] border-l-[0] w-[274px] h-0 relative mt-[-10px]"
-            ></div>
-        </div>
-
+      <div className={`fixed top-0 left-0 pt-[0px] h-full overflow-y-scroll overflow-x-hidden w-64 bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         {/* Menu Links */}
-        <div className="flex flex-col space-y-2 p-5 text-gray-700">
-          <NavLink to="/app/myaccount" className={({ isActive }) => linkClasses(isActive)}>
-            <LibraryBig size={20} />
-            <span>My Courses</span>
-          </NavLink>
-
-          <NavLink to="/app/assessment" className={({ isActive }) => linkClasses(isActive)}>
-            <BookOpenCheck size={20} />
-            <span>Assessment</span>
-          </NavLink>
-
-          <NavLink to="/app/message" className={({ isActive }) => linkClasses(isActive)}>
-            <Mail size={20} />
-            <span>Message</span>
-          </NavLink>
-
-          <NavLink to="/app/certificates" className={({ isActive }) => linkClasses(isActive)}>
-            <Award size={20} />
-            <span>Certificates</span>
-          </NavLink>
-
-          <NavLink to="/app/myreviews" className={({ isActive }) => linkClasses(isActive)}>
-            <Star size={20} />
-            <span>My Reviews</span>
-          </NavLink>
-
-          {/* Manage courses with independent submenu */}
-          <div>
-            <button onClick={toggleManageCourses} className={`w-full flex justify-between items-center p-2 rounded-md ${location.pathname.startsWith('/courses') ? 'bg-blue-100 text-blue-600 font-medium' : '' }`} >
-              <div className="flex items-center space-x-2">
-                <Settings size={20} />
-                <span>Manage Courses</span>
+        <div className='block lg:hidden' style={{ width: 240 }}>
+          <Sidenav>
+            <Sidenav.Body>
+              <div className="bg-grey-background rounded-2xl pt-6 pb-6 flex flex-col gap-6 items-center justify-start relative overflow-x-hidden">
+                <div className="flex flex-col gap-4 items-center justify-start shrink-0 relative mt-10">
+                  <img className="rounded-[50%] shrink-0 w-20 lg:w-40 h-20 lg:h-40 relative"
+                  src={profileimage}
+                  />
+                  <div className="text-grey-900 text-left font-heading-4-subheading-font-family text-heading-4-subheading-font-size leading-heading-4-subheading-line-height font-heading-4-subheading-font-weight relative flex items-center justify-start">
+                    John Doe
+                  </div>
+                  <button className="bg-white rounded-lg border-solid border-grey-border border pt-2.5 pr-6 pb-2.5 pl-6 flex flex-row gap-1.5 items-center justify-center shrink-0 h-12 relative">
+                      <div className="text-grey-900 text-left font-button-text-font-family text-[12px] md:text-[14px] leading-button-text-line-height font-button-text-font-weight relative">
+                          Share Profile
+                      </div>
+                      <img className="shrink-0 w-4 md:w-6 h-4 md:h-6 relative overflow-visible"
+                          src={share}
+                      />
+                  </button>
+                </div>
+                <div className="border-solid border-grey-border border-t border-r-[0] border-b-[0] border-l-[0] shrink-0 w-[274px] h-0 relative"></div>
               </div>
-              {manageCoursesOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-            </button>
-            {manageCoursesOpen && (
-              <div className="ml-6 mt-2 flex flex-col space-y-1 text-sm text-gray-600">
-                <NavLink to="" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
-                  <UserPen size={20} />
-                  Manage Courses
-                </NavLink>
-                <NavLink to="" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
-                  <UserPen size={20} />
-                  Create Courses
-                </NavLink>
-                <NavLink to="" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
-                  <UserPen size={20} />
-                  Assign Courses
-                </NavLink>
-              </div>
-            )}
-          </div>
+              <Nav activeKey={activeKey}>
+                <Nav.Item as={Link} to="/app/myaccount" eventKey="1" icon={<StorageIcon />}>
+                  My Courses
+                </Nav.Item>
+                <Nav.Item as={Link} to="/app/assessment" eventKey="2" icon={<TaskIcon />}>
+                  Assessment
+                </Nav.Item>
+                <Nav.Item as={Link} to="/app/message" eventKey="3" icon={<EmailIcon />}>
+                  Message
+                </Nav.Item>
+                <Nav.Item as={Link} to="/app/certificates" eventKey="4" icon={<UserBadgeIcon />}>
+                  Certificates
+                </Nav.Item>
+                <Nav.Item as={Link} to="/app/myreviews" eventKey="5" icon={<ModelIcon />}>
+                  My Reviews
+                </Nav.Item>
 
-          {/* Manage users with independent submenu */}
-          <div>
-            <button onClick={toggleManageUsers} className={`w-full flex justify-between items-center p-2 rounded-md ${location.pathname.startsWith('/users') ? 'bg-blue-100 text-blue-600 font-medium' : '' }`} >
-              <div className="flex items-center space-x-2">
-                <Settings size={20} />
-                <span>Manage Users</span>
-              </div>
-              {manageUsersOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-            </button>
-            {manageUsersOpen && (
-              <div className="ml-6 mt-2 flex flex-col space-y-1 text-sm text-gray-600">
-                <NavLink to="" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
-                  <UserPen size={20} />
-                  All Users
-                </NavLink>
-                <NavLink to="" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
-                  <UserPen size={20} />
-                  Create a User
-                </NavLink>
-                <NavLink to="" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
-                  <UserPen size={20} />
-                  User Roles
-                </NavLink>
-              </div>
-            )}
-          </div>
+                {/* For Courses */}
+                <Nav.Menu placement="rightStart" eventKey="6" title="Manage Courses" icon={<StorageIcon />} >
+                  <Nav.Item as={Link} to="/app/managecourses" eventKey="6-1">
+                    Manage Courses
+                  </Nav.Item>
+                  <Nav.Item as={Link} to="/app/createcourses" eventKey="6-2">
+                    Create a Course
+                  </Nav.Item>
+                  <Nav.Item as={Link} to="" eventKey="6-3">
+                    Assign Course
+                  </Nav.Item>
+                </Nav.Menu>
 
-          {/* Manage Coupons with independent submenu */}
-          <div>
-            <button onClick={toggleManageCoupons} className={`w-full flex justify-between items-center p-2 rounded-md ${location.pathname.startsWith('/coupons') ? 'bg-blue-100 text-blue-600 font-medium' : '' }`} >
-              <div className="flex items-center space-x-2">
-                <Settings size={20} />
-                <span>Manage Coupons</span>
-              </div>
-              {manageCouponsOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-            </button>
-            {manageCouponsOpen && (
-              <div className="ml-6 mt-2 flex flex-col space-y-1 text-sm text-gray-600">
-                <NavLink to="" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
-                  <UserPen size={20} />
-                  All Coupons
-                </NavLink>
-                <NavLink to="" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
-                  <UserPen size={20} />
-                  Create a Coupon
-                </NavLink>
-              </div>
-            )}
-          </div>
+                {/* For User Management */}
+                <Nav.Menu placement="rightStart" eventKey="7" title="Manage Users" icon={<PeoplesMapIcon />} >
+                  <Nav.Item as={Link} to="/app/manageusers" eventKey="7-1">
+                    All Users
+                  </Nav.Item>
+                  <Nav.Item as={Link} to="/app/createuser" eventKey="7-2">
+                    Create a User
+                  </Nav.Item>
+                  <Nav.Item as={Link} to="" eventKey="7-3">
+                    User Role
+                  </Nav.Item>
+                </Nav.Menu>
 
-          {/* Settings with independent submenu */}
-          <div>
-            <button onClick={toggleSettings} className={`w-full flex justify-between items-center p-2 rounded-md ${location.pathname === '/app/profile' ? 'bg-blue-100 text-blue-600 font-medium' : '' }`} >
-              <div className="flex items-center space-x-2">
-                <Settings size={20} />
-                <span>Settings</span>
-              </div>
-              {settingsOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-            </button>
-            {settingsOpen && (
-              <div className="ml-6 mt-2 flex flex-col space-y-1 text-sm text-gray-600">
-                <NavLink to="/app/profile" className={({ isActive }) => `flex flex-row gap-2 rounded-md px-2 py-1 text-gray-700 ${isActive ? 'bg-blue-50 text-blue-600 font-medium' : 'hover:text-blue-600'}`}>
-                  <UserPen size={20} />
-                  Profile
-                </NavLink>
-              </div>
-            )}
-          </div>
-          <NavLink to="/" className={({ isActive }) => linkClasses(isActive)} style={{color: "red"}}>
-            <LogOut size={20} />
-            <span>Logout</span>
-          </NavLink>
+                {/* For Coupon Management */}
+                <Nav.Menu placement="rightStart" eventKey="8" title="Manage Coupons" icon={<DonutChartIcon />} >
+                  <Nav.Item as={Link} to="/app/managecoupons" eventKey="8-1">
+                    All Coupons
+                  </Nav.Item>
+                  <Nav.Item as={Link} to="/app/createcoupon" eventKey="8-2">
+                    Create a Coupon
+                  </Nav.Item>
+                </Nav.Menu>
+
+                {/* For settings */}
+                <Nav.Menu placement="rightStart" eventKey="9" title="Settings" icon={<GearIcon />} >
+                  <Nav.Item as={Link} to="/app/settings" eventKey="9-1">
+                    Settings
+                  </Nav.Item>
+                  <Nav.Item as={Link} to="/app/profile" eventKey="9-2">
+                    Profile
+                  </Nav.Item>
+                  <Nav.Item as={Link} to="" eventKey="9-3">
+                    Applications
+                  </Nav.Item>
+                  <Nav.Item as={Link} to="" eventKey="9-4">
+                    Channels
+                  </Nav.Item>
+                  <Nav.Item as={Link} to="" eventKey="9-5">
+                    Versions
+                  </Nav.Item>
+                </Nav.Menu>
+
+                {/* For Logout */}
+                <Nav.Item as={Link} to="/" eventKey="5" icon={<ExitIcon />} style={{color: "red"}}>
+                  Logout
+                </Nav.Item>
+
+              </Nav>
+            </Sidenav.Body>
+          </Sidenav>
         </div>
       </div>
 

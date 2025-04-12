@@ -23,6 +23,7 @@ import CreateUser from "./app/CreateUser";
 import ManageCoupons from "./app/ManageCoupons";
 import CreateCoupon from "./app/CreateCoupon";
 import ScrollToTop from './assets/components/ScrollToTop'
+import Settings from "./app/Settings";
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
         <Route path="/app/createuser" element={<CreateUser />} />
         <Route path="/app/managecoupons" element={<ManageCoupons />} />
         <Route path="/app/createcoupon" element={<CreateCoupon />} />
+        <Route path="/app/settings" element={<Settings />} />
       </Routes>
     </Router>
     </>
