@@ -4,12 +4,14 @@ import heroimage2 from '../../image/heroimage2.svg';
 import heroimage3 from '../../image/heroimage3.svg';
 import heromultipleimage from '../../image/heromultipleimage.svg';
 import { Link } from 'react-router-dom';
+import mobileheroone from '../../image/mobileheroone.svg';
+import mobileherotwo from '../../image/mobileherotwo.svg';
 
 
 function HeroSection() {
   return (
     <>
-    <div className="w-full flex flex-col md:flex-col lg:flex-row justify-start md:justify-center items-center bg-[#ffffff] h-[400px] md:h-[600px] relative overflow-hidden">
+    <div className="w-full flex flex-col-reverse lg:flex-row justify-start md:justify-center items-center bg-[#ffffff] lg:h-[600px] relative overflow-hidden">
         <div className="w-[100%] md:w-[90%] lg:w-[50%] flex flex-col gap-6 items-start justify-start mt-[30px] md:mt-0">
             <div className="flex flex-col gap-4 items-start justify-start shrink-0 relative">
                 <div
@@ -23,14 +25,20 @@ function HeroSection() {
                     professional, or lifelong learner, our cutting-edge Learning Management System is designed to elevate your learning experience.
                 </div>
             </div>
-            <Link to="/app/coursecategory" className="bg-blue-600 rounded-lg p-4 flex flex-row gap-2 items-center justify-center shrink-0 relative ml-[10px] md:ml-0">
+            <Link to="/app/coursecategory" className="bg-blue-600 rounded-lg px-4 py-2 md:px-4 md:py-2 flex flex-row gap-2 items-center justify-center shrink-0 relative ml-[10px] md:ml-0">
                 <div className="text-white text-left font-['Inter-Medium',_sans-serif] text-base font-medium relative">
                     Get Started
                 </div>
             </Link>
         </div>
 
-        {/* Hero Rightside */}
+        {/* Small screen Hero Top side */}
+        <div className='block lg:hidden'>
+            <img src={mobileheroone} alt={mobileheroone} className='h-[100%]' />
+        </div>
+
+
+        {/* Large screen Hero Rightside */}
         <div className="hidden lg:flex lg:flex-row lg:justify-center w-[40%] h-[557px] overflow-hidden ml-[-30px] relative">
             <div className="bg-white rounded-lg border-solid border-grey-border border w-[167px] h-[114px] absolute left-[130px] top-[415px] overflow-hidden">
                 <div className="flex flex-row items-start justify-start absolute left-3 top-3 border-none outline-none">
@@ -83,7 +91,7 @@ function HeroSection() {
                     />
                 </div>
             </div>
-           </div> 
+        </div> 
     </div>
     </>
   )

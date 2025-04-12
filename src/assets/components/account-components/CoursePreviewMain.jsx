@@ -6,8 +6,8 @@ import CourseVideoPlayer from './CourseVideoPlayer';
 import ReactPlayer from 'react-player';
 
 function CoursePreviewMain() {
-  const videoSrc = "https://www.w3schools.com/html/mov_bbb.mp4";
-  // const videoSrc = "https://vimeo.com/1074814552/cdaf0e228c";
+  // const videoSrc = "https://www.w3schools.com/html/mov_bbb.mp4";
+  const videoSrc = "https://vimeo.com/1074814552/cdaf0e228c";
 
   return (
     <>

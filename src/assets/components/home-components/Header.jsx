@@ -46,7 +46,7 @@ function Header() {
         </div>
 
         {/* Cart, acount and Hamburger Menu for Mobile */}
-        <div className='lg:hidden flex flex-row gap-6 mr-[-140px]'>
+        <div className='lg:hidden flex flex-row gap-6 mr-[-90px] md:mr-0'>
           <Link to="/app/cart" className="flex items-center">
               <span className="fa fa-shopping-cart text-[22px] text-gray-800"></span>
           </Link>
@@ -55,12 +55,9 @@ function Header() {
           </Link>
         </div>
 
-        <button
-            className="lg:hidden text-gray-700 text-2xl focus:outline-none"
-            onClick={toggleMenu}
-          >
-            <span className="fa fa-bars"></span>
-          </button>
+        <button className="lg:hidden text-gray-700 text-2xl focus:outline-none" onClick={toggleMenu}>
+          <span className="fa fa-bars"></span>
+        </button>
 
         {/* Mobile Menu */}
         <div className={`flex flex-col fixed top-0 right-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${ menuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
