@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import DashboardIcon from '@rsuite/icons/legacy/Dashboard';
 import GroupIcon from '@rsuite/icons/legacy/Group';
 import GearCircleIcon from '@rsuite/icons/legacy/GearCircle';
+import DashboardIcon from '@rsuite/icons/Dashboard';
 import 'rsuite/dist/rsuite.min.css';
 import profileimage from '../../image/profileimage.svg';
 import share from '../../image/share.svg';

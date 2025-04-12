@@ -24,6 +24,8 @@ import ManageCoupons from "./app/ManageCoupons";
 import CreateCoupon from "./app/CreateCoupon";
 import ScrollToTop from './assets/components/ScrollToTop'
 import Settings from "./app/Settings";
+import Dashboard from "./app/Dashboard";
+import CourseSettings from "./app/CourseSettings";
 
 
 function App() {
@@ -55,6 +57,8 @@ function App() {
         <Route path="/app/managecoupons" element={<ManageCoupons />} />
         <Route path="/app/createcoupon" element={<CreateCoupon />} />
         <Route path="/app/settings" element={<Settings />} />
+        <Route path="/app/dashboard" element={<Dashboard />} />
+        <Route path="/app/coursesettings" element={<CourseSettings />} />
       </Routes>
     </Router>
     </>

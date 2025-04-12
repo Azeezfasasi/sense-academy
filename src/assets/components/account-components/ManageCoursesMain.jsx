@@ -35,6 +35,13 @@ const ManageCoursesMain = () => {
 
   return (
     <div>
+      <div style={{ padding: 10 }}>
+        <Pagination
+          size="md"
+          layout={['total']}
+          total={mockCourses.length}
+        />
+      </div>
       <Table height={420} data={data}>
         <Column width={50} align="center">
           <HeaderCell style={{ fontWeight: "bold", fontSize: "14px" }}>Id</HeaderCell>
@@ -68,7 +75,7 @@ const ManageCoursesMain = () => {
         </Column>
       </Table>
 
-      <div style={{ padding: 20 }}>
+      <div style={{ padding: 20 }} className='hidden md:block'>
         <Pagination
           prev
           next
@@ -80,13 +87,59 @@ const ManageCoursesMain = () => {
           size="xs"
           layout={['total', '-', 'limit', '|', 'pager']}
           total={mockCourses.length}
-          limitOptions={[5, 10, 20]}
+          limitOptions={[10, 30, 50, 100]}
           limit={limit}
           activePage={page}
           onChangePage={setPage}
           onChangeLimit={handleChangeLimit}
         />
       </div>
+      <div className='md:hidden w-full flex flex-row gap-6 justify-center items-center mt-4 mx-auto'>
+        <Pagination
+            prev
+            next
+            first
+            last
+            ellipsis
+            boundaryLinks
+            maxButtons={5}
+            size="xs"
+            layout={['total',]}
+            total={mockCourses.length}
+            limitOptions={[10, 30, 50, 100]}
+            limit={limit}
+            activePage={page}
+            onChangePage={setPage}
+            onChangeLimit={handleChangeLimit}
+          />
+          <Pagination
+            prev
+            next
+            first
+            last
+            ellipsis
+            boundaryLinks
+            maxButtons={5}
+            size="xs"
+            layout={['pager']}
+            total={mockCourses.length}
+            limitOptions={[10, 30, 50, 100]}
+            limit={limit}
+            activePage={page}
+            onChangePage={setPage}
+            onChangeLimit={handleChangeLimit}
+          /> 
+        </div>
+
+        <div className='md:hidden flex flex-row justify-center items-start mt-4 mx-auto'>
+        <Pagination
+            size="md"
+            layout={['limit']}
+            limitOptions={[10, 30, 50, 100]}
+            limit={limit}
+            onChangeLimit={handleChangeLimit}
+          />
+        </div>
     </div>
   );
 };

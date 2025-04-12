@@ -10,6 +10,7 @@ import ModelIcon from '@rsuite/icons/Model';
 import TaskIcon from '@rsuite/icons/Task';
 import DonutChartIcon from '@rsuite/icons/DonutChart';
 import ExitIcon from '@rsuite/icons/Exit';
+import DashboardIcon from '@rsuite/icons/Dashboard';
 import 'rsuite/dist/rsuite.min.css';
 import profileimage from '../../image/profileimage.svg';
 import share from '../../image/share.svg';
@@ -23,19 +24,21 @@ const MobileMenu = () => {
   const location = useLocation();
   
     const pathToKeyMap = {
-      '/app/myaccount': '1',
-      '/app/assessment': '2',
-      '/app/message': '3',
-      '/app/certificates': '4',
-      '/app/myreviews': '5',
-      '/app/managecourses': '6-1',
-      '/app/createcourses': '6-2',
-      '/app/manageusers': '7-1',
-      '/app/createuser': '7-2',
-      '/app/managecoupons': '8-1',
-      '/app/createcoupon': '8-2',
-      '/app/settings': '9-1',
-      '/app/profile': '9-2',
+      '/app/dashboard': '1',
+      '/app/myaccount': '2',
+      '/app/assessment': '3',
+      '/app/message': '4',
+      '/app/certificates': '5',
+      '/app/myreviews': '6',
+      '/app/managecourses': '7-1',
+      '/app/createcourses': '7-2',
+      '/app/coursesettings': '7-3',
+      '/app/manageusers': '8-1',
+      '/app/createuser': '8-2',
+      '/app/managecoupons': '9-1',
+      '/app/createcoupon': '9-2',
+      '/app/settings': '10-1',
+      '/app/profile': '10-2',
     };
   
     const activeKey = pathToKeyMap[location.pathname] || '1'; // fallback to '1'
@@ -71,79 +74,82 @@ const MobileMenu = () => {
                 <div className="border-solid border-grey-border border-t border-r-[0] border-b-[0] border-l-[0] shrink-0 w-[274px] h-0 relative"></div>
               </div>
               <Nav activeKey={activeKey}>
-                <Nav.Item as={Link} to="/app/myaccount" eventKey="1" icon={<StorageIcon />}>
+                <Nav.Item as={Link} to="/app/dashboard" eventKey="1" icon={<DashboardIcon />}>
+                  Dashboard
+                </Nav.Item>
+                <Nav.Item as={Link} to="/app/myaccount" eventKey="2" icon={<StorageIcon />}>
                   My Courses
                 </Nav.Item>
-                <Nav.Item as={Link} to="/app/assessment" eventKey="2" icon={<TaskIcon />}>
+                <Nav.Item as={Link} to="/app/assessment" eventKey="3" icon={<TaskIcon />}>
                   Assessment
                 </Nav.Item>
-                <Nav.Item as={Link} to="/app/message" eventKey="3" icon={<EmailIcon />}>
+                <Nav.Item as={Link} to="/app/message" eventKey="4" icon={<EmailIcon />}>
                   Message
                 </Nav.Item>
-                <Nav.Item as={Link} to="/app/certificates" eventKey="4" icon={<UserBadgeIcon />}>
+                <Nav.Item as={Link} to="/app/certificates" eventKey="5" icon={<UserBadgeIcon />}>
                   Certificates
                 </Nav.Item>
-                <Nav.Item as={Link} to="/app/myreviews" eventKey="5" icon={<ModelIcon />}>
+                <Nav.Item as={Link} to="/app/myreviews" eventKey="6" icon={<ModelIcon />}>
                   My Reviews
                 </Nav.Item>
 
                 {/* For Courses */}
-                <Nav.Menu placement="rightStart" eventKey="6" title="Manage Courses" icon={<StorageIcon />} >
-                  <Nav.Item as={Link} to="/app/managecourses" eventKey="6-1">
+                <Nav.Menu placement="rightStart" eventKey="7" title="Manage Courses" icon={<StorageIcon />} >
+                  <Nav.Item as={Link} to="/app/managecourses" eventKey="7-1">
                     Manage Courses
                   </Nav.Item>
-                  <Nav.Item as={Link} to="/app/createcourses" eventKey="6-2">
+                  <Nav.Item as={Link} to="/app/createcourses" eventKey="7-2">
                     Create a Course
                   </Nav.Item>
-                  <Nav.Item as={Link} to="" eventKey="6-3">
-                    Assign Course
+                  <Nav.Item as={Link} to="/app/coursesettings" eventKey="7-3">
+                    Course Settings
                   </Nav.Item>
                 </Nav.Menu>
 
                 {/* For User Management */}
-                <Nav.Menu placement="rightStart" eventKey="7" title="Manage Users" icon={<PeoplesMapIcon />} >
-                  <Nav.Item as={Link} to="/app/manageusers" eventKey="7-1">
+                <Nav.Menu placement="rightStart" eventKey="8" title="Manage Users" icon={<PeoplesMapIcon />} >
+                  <Nav.Item as={Link} to="/app/manageusers" eventKey="8-1">
                     All Users
                   </Nav.Item>
-                  <Nav.Item as={Link} to="/app/createuser" eventKey="7-2">
+                  <Nav.Item as={Link} to="/app/createuser" eventKey="8-2">
                     Create a User
                   </Nav.Item>
-                  <Nav.Item as={Link} to="" eventKey="7-3">
+                  <Nav.Item as={Link} to="" eventKey="8-3">
                     User Role
                   </Nav.Item>
                 </Nav.Menu>
 
                 {/* For Coupon Management */}
-                <Nav.Menu placement="rightStart" eventKey="8" title="Manage Coupons" icon={<DonutChartIcon />} >
-                  <Nav.Item as={Link} to="/app/managecoupons" eventKey="8-1">
+                <Nav.Menu placement="rightStart" eventKey="9" title="Manage Coupons" icon={<DonutChartIcon />} >
+                  <Nav.Item as={Link} to="/app/managecoupons" eventKey="9-1">
                     All Coupons
                   </Nav.Item>
-                  <Nav.Item as={Link} to="/app/createcoupon" eventKey="8-2">
+                  <Nav.Item as={Link} to="/app/createcoupon" eventKey="9-2">
                     Create a Coupon
                   </Nav.Item>
                 </Nav.Menu>
 
                 {/* For settings */}
-                <Nav.Menu placement="rightStart" eventKey="9" title="Settings" icon={<GearIcon />} >
-                  <Nav.Item as={Link} to="/app/settings" eventKey="9-1">
+                <Nav.Menu placement="rightStart" eventKey="10" title="Settings" icon={<GearIcon />} >
+                  <Nav.Item as={Link} to="/app/settings" eventKey="10-1">
                     Settings
                   </Nav.Item>
-                  <Nav.Item as={Link} to="/app/profile" eventKey="9-2">
+                  <Nav.Item as={Link} to="/app/profile" eventKey="10-2">
                     Profile
                   </Nav.Item>
-                  <Nav.Item as={Link} to="" eventKey="9-3">
+                  <Nav.Item as={Link} to="" eventKey="10-3">
                     Applications
                   </Nav.Item>
-                  <Nav.Item as={Link} to="" eventKey="9-4">
+                  <Nav.Item as={Link} to="" eventKey="10-4">
                     Channels
                   </Nav.Item>
-                  <Nav.Item as={Link} to="" eventKey="9-5">
+                  <Nav.Item as={Link} to="" eventKey="10-5">
                     Versions
                   </Nav.Item>
                 </Nav.Menu>
 
                 {/* For Logout */}
-                <Nav.Item as={Link} to="/" eventKey="5" icon={<ExitIcon />} style={{color: "red"}}>
+                <Nav.Item as={Link} to="/" eventKey="11" icon={<ExitIcon />} style={{color: "red"}}>
                   Logout
                 </Nav.Item>
 
