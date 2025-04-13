@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import senselogo from '../../image/senselogo.png'
 import { Link } from 'react-router-dom';
 import heart from '../../image/heart.svg';
@@ -7,11 +7,18 @@ import cart from '../../image/cart.svg';
 import profileimage from '../../image/profileimage.svg';
 import HamburgerMenu from './MobileMenu';
 import { Button, Menu, Portal, CloseButton, Dialog } from "@chakra-ui/react"
+import { ProfileContext } from '@/assets/contextAPI/ProfileContext';
 
 function AccountHeader() {
+    const { user, loading, logout } = useContext(ProfileContext);
+
+    if (loading) {
+        return <div>Loading...</div>; // Or a more sophisticated loading spinner
+    }
+
   return (
     <>
-    <div className="flex flex-row justify-between lg:justify-evenly items-center bg-white h-[65px] sticky top-0 z-50 border-b overflow-x-hidden">
+    <div className="w-full flex flex-row justify-between lg:justify-between items-center bg-white h-[65px] sticky top-0 z-50 border-b overflow-x-hidden px-6">
 
         {/* Hamburger Menu */}
         <HamburgerMenu />
@@ -23,17 +30,8 @@ function AccountHeader() {
             />
         </Link>
 
-        {/* Search */}
-        <div className="hidden rounded-lg border-solid border-grey-700 border lg:flex flex-row gap-1 items-center justify-start h-fit w-[622px] relative">
-            <span className="fa fa-search ml-1"></span>
-            <input type='search' placeholder='Search Courses...' className="text-grey-700 text-left font-['Inter-Medium',_sans-serif] text-xs font-medium relative w-[95%] pt-2.5 pb-2.5 pl-2.5" />
-        </div>
-        <Link to="" className="hidden lg:block text-grey-700 text-left font-['Inter-Medium',_sans-serif] text-sm leading-5 font-medium border p-2 rounded-md">
-            Teach on Sense Academy
-        </Link>
-
         {/* Top Right */}
-        <div className="flex flex-row items-center justify-start gap-6 md:gap-8 w-[180px] mr-[10px] md:mr-0">
+        <div className="flex flex-row items-center justify-start gap-6 md:gap-8  mr-[30px] md:mr-[10px]">
             <Link to="" className="flex flex-row items-start justify-start relative">
                 <img className="shrink-0 w-6 h-6 relative overflow-visible" src={heart} />
             </Link>
@@ -75,7 +73,11 @@ function AccountHeader() {
             <Menu.Root>
                 <Menu.Trigger asChild>
                     <Button variant="outline" size="sm">
-                        <img src={profileimage} alt="" className='w-10 h-10'/>
+                        <img src={user.profileImage || profileimage} alt="" className='w-10 h-10 rounded-[50%]'/>
+                        <div className='flex flex-col items-start gap-0'>
+                            <p className='text-[13px] md:text-[14px] mb-[-10px] font-[600]'>{user.firstName} {user.lastName}</p>
+                            <p className='text-[13px] md:text-[14px] font-thin'>{user.role}</p>
+                        </div>
                     </Button>
                 </Menu.Trigger>
                 <Portal>
@@ -84,16 +86,18 @@ function AccountHeader() {
                             <Menu.Item value="assessment" as={Link} to="/app/assessment" style={{textDecoration: "none", color: "black", cursor: "pointer"}}>
                                 Assessment
                             </Menu.Item>
+                            
                             <Menu.Item value="certificates" as={Link} to="/app/certificates" style={{textDecoration: "none", color: "black", cursor: "pointer"}}>
                                 Certificates
                             </Menu.Item>
+                            
                             <Menu.Item value="profile" as={Link} to="/app/profile" style={{textDecoration: "none", color: "black", cursor: "pointer"}}>
                                 Profile
                             </Menu.Item>
                             <Menu.Item value="settings" as={Link} to="/app/settings" style={{textDecoration: "none", color: "black", cursor: "pointer"}}>
                                 Settings
                             </Menu.Item>
-                            <Menu.Item value="logout" as={Link} to="/" style={{textDecoration: "none", color: "red", cursor: "pointer"}}>
+                            <Menu.Item value="logout" as={Link} style={{textDecoration: "none", color: "red", cursor: "pointer"}} onClick={logout}>
                                 Logout
                             </Menu.Item>
                         </Menu.Content>

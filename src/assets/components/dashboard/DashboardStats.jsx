@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import statsIcon from '../../image/statsIcon.svg';
 import CourseTimeSalesChart from './CourseTimeSalesChart';
+import { ProfileContext } from '@/assets/contextAPI/ProfileContext';
 
 function DashboardStats() {
+    const { user, adminCount, instructorCount, studentCount } = useContext(ProfileContext);
+
   return (
     <>
+    {user?.role === "Admin" && (
     <div className='flex flex-col lg:flex-row justify-start items-start gap-4'>
         {/* Left side */}
         <div className='w-full lg:w-[40%] flex flex-col gap-6 overflow-hidden'>
@@ -19,11 +23,11 @@ function DashboardStats() {
                     <div className="flex flex-col gap-[3px] items-start justify-center shrink-0 relative">
                         <div className="flex flex-row gap-4 items-center justify-start shrink-0 relative">
                         <div className="text-grey-900 text-left font-heading-3-font-family text-heading-3-font-size leading-heading-3-line-height font-heading-3-font-weight relative">
-                            $1K
+                            {studentCount}
                         </div>
                         </div>
                         <div className="text-grey-700 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
-                        Life Time Courses Commission
+                        Total Numbers of Students
                         </div>
                     </div>
                     </div>
@@ -41,11 +45,11 @@ function DashboardStats() {
                     <div className="flex flex-col gap-[3px] items-start justify-center shrink-0 relative">
                         <div className="flex flex-row gap-4 items-center justify-start shrink-0 relative">
                         <div className="text-grey-900 text-left font-heading-3-font-family text-heading-3-font-size leading-heading-3-line-height font-heading-3-font-weight relative">
-                            $1K
+                            {instructorCount}
                         </div>
                         </div>
                         <div className="text-grey-700 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
-                        Life Time Courses Commission
+                            Total Number of Instructors
                         </div>
                     </div>
                     </div>
@@ -63,11 +67,11 @@ function DashboardStats() {
                     <div className="flex flex-col gap-[3px] items-start justify-center shrink-0 relative">
                         <div className="flex flex-row gap-4 items-center justify-start shrink-0 relative">
                         <div className="text-grey-900 text-left font-heading-3-font-family text-heading-3-font-size leading-heading-3-line-height font-heading-3-font-weight relative">
-                            $1K
+                            {adminCount}
                         </div>
                         </div>
                         <div className="text-grey-700 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
-                        Life Time Courses Commission
+                        Totla numbers of Admin
                         </div>
                     </div>
                     </div>
@@ -80,6 +84,7 @@ function DashboardStats() {
             <CourseTimeSalesChart />
         </div>
     </div>
+    )}
 
     
 

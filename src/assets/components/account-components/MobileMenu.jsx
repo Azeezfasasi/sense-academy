@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { Sidenav, Nav } from 'rsuite';
 import { Link, useLocation } from 'react-router-dom';
 import GearIcon from '@rsuite/icons/Gear';
@@ -15,13 +15,17 @@ import 'rsuite/dist/rsuite.min.css';
 import profileimage from '../../image/profileimage.svg';
 import share from '../../image/share.svg';
 import { Menu, X } from 'lucide-react';
+import { ProfileContext } from '@/assets/contextAPI/ProfileContext';
 
 const MobileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleMenu = () => setIsOpen(!isOpen)
-
   const location = useLocation();
+  const { user, loading, logout } = useContext(ProfileContext);
+    
+    if (loading) {
+        return <div>Loading...</div>; // Or a more sophisticated loading spinner
+    }
   
     const pathToKeyMap = {
       '/app/dashboard': '1',
@@ -57,10 +61,10 @@ const MobileMenu = () => {
               <div className="bg-grey-background rounded-2xl pt-6 pb-6 flex flex-col gap-6 items-center justify-start relative overflow-x-hidden">
                 <div className="flex flex-col gap-4 items-center justify-start shrink-0 relative mt-10">
                   <img className="rounded-[50%] shrink-0 w-20 lg:w-40 h-20 lg:h-40 relative"
-                  src={profileimage}
+                  src={user.profileImage || profileimage}
                   />
                   <div className="text-grey-900 text-left font-heading-4-subheading-font-family text-heading-4-subheading-font-size leading-heading-4-subheading-line-height font-heading-4-subheading-font-weight relative flex items-center justify-start">
-                    John Doe
+                    {user.firstName} {user.lastName}
                   </div>
                   <button className="bg-white rounded-lg border-solid border-grey-border border pt-2.5 pr-6 pb-2.5 pl-6 flex flex-row gap-1.5 items-center justify-center shrink-0 h-12 relative">
                       <div className="text-grey-900 text-left font-button-text-font-family text-[12px] md:text-[14px] leading-button-text-line-height font-button-text-font-weight relative">
@@ -149,7 +153,7 @@ const MobileMenu = () => {
                 </Nav.Menu>
 
                 {/* For Logout */}
-                <Nav.Item as={Link} to="/" eventKey="11" icon={<ExitIcon />} style={{color: "red"}}>
+                <Nav.Item as={Link} to="/" eventKey="11" icon={<ExitIcon />} style={{color: "red"}} onClick={logout}>
                   Logout
                 </Nav.Item>
 
