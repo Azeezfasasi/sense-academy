@@ -1,111 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 const CourseCreationForm = () => {
-  // const [formData, setFormData] = useState({
-  //   title: '',
-  //   subTitle: '',
-  //   description: '',
-  //   category: '',
-  //   totalDuration: '',
-  //   duration: '',
-  //   video: '',
-  //   regularPrice: '',
-  //   discountedPrice: '',
-  //   level: '',
-  //   language: '',
-  //   introVideo: '',
-  //   introImage: '',
-  //   material: '',
-  //   createdBy: '',
-  // });
-
-  // const [chapters, setChapters] = useState([]);
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: name === 'price' ? parseFloat(value) || '' : value,
-  //   }));
-  // };
-
-  // const handleDescriptionChange = (value) => {
-  //   setFormData((prev) => ({ ...prev, description: value }));
-  // };
-
-  // const handleSubTitleChange = (value) => {
-  //   setFormData((prev) => ({ ...prev, subTitle: value }));
-  // };
-
-  // const addChapter = () => {
-  //   setChapters([...chapters, { title: '', lessons: [] }]);
-  // };
-
-  // const handleChapterTitleChange = (index, event) => {
-  //   const newChapters = [...chapters];
-  //   newChapters[index].title = event.target.value;
-  //   setChapters(newChapters);
-  // };
-
-  // const addLesson = (chapterIndex) => {
-  //   const newChapters = [...chapters];
-  //   newChapters[chapterIndex].lessons = [...newChapters[chapterIndex].lessons, { title: '', duration: '', video: '' }];
-  //   setChapters(newChapters);
-  // };
-
-  // const handleLessonTitleChange = (chapterIndex, lessonIndex, event) => {
-  //   const newChapters = [...chapters];
-  //   newChapters[chapterIndex].lessons[lessonIndex].title = event.target.value;
-  //   setChapters(newChapters);
-  // };
-
-  // const handleLessonDurationChange = (chapterIndex, lessonIndex, event) => {
-  //   const newChapters = [...chapters];
-  //   newChapters[chapterIndex].lessons[lessonIndex].duration = event.target.value;
-  //   setChapters(newChapters);
-  // };
-
-  // const handleLessonVideoChange = (chapterIndex, lessonIndex, event) => {
-  //   const newChapters = [...chapters];
-  //   newChapters[chapterIndex].lessons[lessonIndex].video = event.target.value;
-  //   setChapters(newChapters);
-  // };
-
-  // const handleRemoveChapter = (chapterIndex) => {
-  //   const newChapters = chapters.filter((_, index) => index !== chapterIndex);
-  //   setChapters(newChapters);
-  // };
-
-  // const handleRemoveLesson = (chapterIndex, lessonIndex) => {
-  //   const newChapters = [...chapters];
-  //   newChapters[chapterIndex].lessons = newChapters[chapterIndex].lessons.filter((_, index) => index !== lessonIndex);
-  //   setChapters(newChapters);
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const courseData = {
-  //     ...formData,
-  //     chapters: chapters.map(chapter => ({
-  //       title: chapter.title,
-  //       lessons: chapter.lessons,
-  //     })),
-  //   };
-  //   console.log('Course submitted:', courseData);
-  //   // API call or further logic goes here
-  // };
-
-  // const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone();
-
-  // const files = acceptedFiles.map(file => (
-  //   <li key={file.path}>
-  //     {file.path} - {file.size} bytes
-  //   </li>
-  // ));
-
   const [formData, setFormData] = useState({
     title: '',
     subTitle: '',
@@ -208,13 +106,51 @@ const CourseCreationForm = () => {
     // API call or further logic goes here
   };
 
-  const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone();
+  const {
+    getRootProps: getVideoRootProps,
+    getInputProps: getVideoInputProps,
+    acceptedFiles: acceptedVideoFiles,
+    isDragActive: isVideoDragActive,
+  } = useDropzone({ accept: { 'video/*': [] } });
+  
+  const {
+    getRootProps: getImageRootProps,
+    getInputProps: getImageInputProps,
+    acceptedFiles: acceptedImageFiles,
+    isDragActive: isImageDragActive,
+  } = useDropzone({ accept: { 'image/*': [] } });
 
-  const files = acceptedFiles.map((file) => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
+  const videoFiles = acceptedVideoFiles.map((vidfile) => (
+    <li key={vidfile.path}>
+      {vidfile.path} - {vidfile.size} bytes
     </li>
   ));
+
+  useEffect(() => {
+    if (acceptedVideoFiles.length > 0) {
+      setFormData((prev) => ({
+        ...prev,
+        introVideo: acceptedVideoFiles[0], // or acceptedVideoFiles if you want multiple
+      }));
+    }
+  }, [acceptedVideoFiles]);
+
+  useEffect(() => {
+    if (acceptedImageFiles.length > 0) {
+      setFormData((prev) => ({
+        ...prev,
+        introImage: acceptedImageFiles[0], // or acceptedVideoFiles if you want multiple
+      }));
+    }
+  }, [acceptedImageFiles]);
+  
+  
+  const imageFiles = acceptedImageFiles.map((imgfile) => (
+    <li key={imgfile.path}>
+      {imgfile.path} - {imgfile.size} bytes
+    </li>
+  ));
+  
 
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-8 space-y-6">
@@ -334,27 +270,29 @@ const CourseCreationForm = () => {
         </select>
       </div>
 
+      {/* Intro Video Upload */}
       <div>
         <label className="block mb-1 font-semibold text-gray-700">Upload Intro Video</label>
-        <div {...getRootProps()} className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors duration-200 ${isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300'}`}>
-          <input {...getInputProps()} name='introVideo' value={formData.introVideo} onChange={handleChange} />
+        <div {...getVideoRootProps()} className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors duration-200 ${isVideoDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300'}`}>
+          <input {...getVideoInputProps()} name='introVideo'/>
           <p>Drag 'n' drop a video here, or click to select files</p>
         </div>
         <aside className='flex flex-row items-start justify-start gap-2'>
           <p className='text-[12px] md:text-[14px] font-bold'>File Path:</p>
-          <ul className='text-[11px] md:text-[14px]'>{files}</ul>
+          <ul className='text-[11px] md:text-[14px]'>{videoFiles}</ul>
         </aside>
       </div>
 
+      {/* Intro Image Upload */}
       <div>
         <label className="block mb-1 font-semibold text-gray-700">Upload Intro Image</label>
-        <div {...getRootProps()} className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors duration-200 ${isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300'}`}>
-          <input {...getInputProps()} value={formData.introImage} onChange={handleChange}/>
+        <div {...getImageRootProps()} className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors duration-200 ${isImageDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300'}`}>
+          <input {...getImageInputProps()} name='introImage' />
           <p>Drag 'n' drop an image here, or click to select files</p>
         </div>
         <aside className='flex flex-row items-start justify-start gap-2'>
           <p className='text-[12px] md:text-[14px] font-bold'>File Path:</p>
-          <ul className='text-[11px] md:text-[14px]'>{files}</ul>
+          <ul className='text-[11px] md:text-[14px]'>{imageFiles}</ul>
         </aside>
       </div>
 

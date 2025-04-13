@@ -23,32 +23,84 @@ function ProfileMain() {
                     </div>
                 </div>
 
-                {/* Headline */}
-                <div className="w-full md:w-[48%] flex flex-col gap-1.5 items-start justify-start shrink-0 relative px-2">
-                    <div className="text-grey-900 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
-                        Headline
+                <div className="w-full flex flex-col gap-3 md:gap-3 md:flex-row items-center justify-between shrink-0 relative px-2">
+                    {/* Other Names */}
+                    <div className="w-full md:w-[48%] flex flex-col gap-1.5 items-start justify-start shrink-0 relative px-2">
+                        <div className="text-grey-900 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
+                            Other Names
+                        </div>
+                        <input type='text' placeholder='Enter Other names' className="bg-white rounded-lg border-solid border-grey-border border p-4 flex flex-row gap-2 items-center justify-start shrink-0 w-full relative" />
                     </div>
-                    <input type='text' placeholder='Enter Headline' className="bg-white rounded-lg border-solid border-grey-border border p-4 flex flex-row gap-2 items-center justify-start shrink-0 w-full relative" />
+
+                    {/* Headline */}
+                    <div className="w-full md:w-[48%] flex flex-col gap-1.5 items-start justify-start shrink-0 relative px-2">
+                        <div className="text-grey-900 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
+                            Headline
+                        </div>
+                        <input type='text' placeholder='Enter Headline' className="bg-white rounded-lg border-solid border-grey-border border p-4 flex flex-row gap-2 items-center justify-start shrink-0 w-full relative" />
+                    </div>
                 </div>
 
-                {/* Description */}
-                <div className="w-full md:w-[48%] flex flex-col gap-1.5 items-start justify-start shrink-0 relative px-2">
-                    <div className="text-grey-900 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative" >
-                        Description
+                <div className="w-full flex flex-col gap-3 md:gap-3 md:flex-row items-center justify-between shrink-0 relative px-2">
+                    {/* Email */}
+                    <div className="w-full md:w-[48%] flex flex-col gap-1.5 items-start justify-start shrink-0 relative px-2">
+                        <div className="text-grey-900 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
+                           Email
+                        </div>
+                        <input type='email' placeholder='Enter email' className="bg-white rounded-lg border-solid border-grey-border border p-4 flex flex-row gap-2 items-center justify-start shrink-0 w-full relative" />
                     </div>
-                    <textarea placeholder='Enter description'  className='bg-white rounded-lg border-solid border-grey-border border p-4 flex flex-row gap-2 items-start justify-start shrink-0 w-full h-[120px] relative'></textarea>
+
+                    {/* Password */}
+                    <div className="w-full md:w-[48%] flex flex-col gap-1.5 items-start justify-start shrink-0 relative px-2">
+                        <div className="text-grey-900 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
+                            Password
+                        </div>
+                        <input type='password' placeholder='Enter password' className="bg-white rounded-lg border-solid border-grey-border border p-4 flex flex-row gap-2 items-center justify-start shrink-0 w-full relative" />
+                    </div>
                 </div>
 
-                {/* Description and Language */}
-                <div className="w-full md:w-[48%] flex flex-col gap-1.5 items-start justify-start shrink-0 relative px-2">
-                    <div className="text-grey-900 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
-                        Language
+                <div className="w-full flex flex-col gap-3 md:gap-3 md:flex-row items-start justify-between shrink-0 relative px-2">
+                    {/* phone number */}
+                    <div className="w-full md:w-[48%] flex flex-col gap-1.5 items-start justify-start shrink-0 relative px-2">
+                        <div className="text-grey-900 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
+                            Phone Number
+                        </div>
+                        <input type='text' placeholder='Enter phone number' className="bg-white rounded-lg border-solid border-grey-border border p-4 flex flex-row gap-2 items-center justify-start shrink-0 w-full relative" />
                     </div>
-                    <select className="bg-white rounded-lg border-solid border-grey-border border p-4 flex flex-row items-center justify-between shrink-0 w-full relative">
-                        <option value="">English</option>
-                        <option value="">French</option>
-                    </select>
+
+                    {/* Description */}
+                    <div className="w-full md:w-[48%] flex flex-col gap-1.5 items-start justify-start shrink-0 relative px-2">
+                        <div className="text-grey-900 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative" >
+                            Bio
+                        </div>
+                        <textarea placeholder='Enter description'  className='bg-white rounded-lg border-solid border-grey-border border p-4 flex flex-row gap-2 items-start justify-start shrink-0 w-full h-[120px] relative'></textarea>
+                    </div>
                 </div>
+
+                {/* Country and Language */}
+                <div className="w-full flex flex-col gap-3 md:gap-3 md:flex-row items-start justify-between shrink-0 relative px-2">
+                    <div className="w-full md:w-[48%] flex flex-col gap-1.5 items-start justify-start shrink-0 relative px-2">
+                        <div className="text-grey-900 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
+                            Language
+                        </div>
+                        <select className="bg-white rounded-lg border-solid border-grey-border border p-4 flex flex-row items-center justify-between shrink-0 w-full relative">
+                            <option value="">Choose Language</option>
+                            <option value="">English</option>
+                            <option value="">French</option>
+                        </select>
+                    </div>
+                    <div className="w-full md:w-[48%] flex flex-col gap-1.5 items-start justify-start shrink-0 relative px-2">
+                        <div className="text-grey-900 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
+                            Country
+                        </div>
+                        <select className="bg-white rounded-lg border-solid border-grey-border border p-4 flex flex-row items-center justify-between shrink-0 w-full relative">
+                            <option value="">Choose Country</option>
+                            <option value="">Nigeria</option>
+                            <option value="">Others</option>
+                        </select>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -69,13 +121,8 @@ function ProfileMain() {
             </div>
             <div className='flex flex-row gap-3 items-center justify-start'>
                 <div className='w-[50%]'>
-                    <input type='text' placeholder='Label' className="bg-white rounded-lg border-solid border-grey-border border p-2 lg:p-4 flex flex-row gap-2 items-center justify-start w-full" />
+                    <input type='file' className="bg-white rounded-lg border-solid border-grey-border border p-2 lg:p-4 flex flex-row gap-2 items-center justify-start w-full" />
                 </div>
-                <button className="w-[40%] lg:w-[20%] bg-white rounded-lg border-solid border-grey-900 border pt-1 lg:pt-3 pr-2 lg:pr-6 pb-1 lg:pb-3 pl-2 lg:pl-6 flex flex-row gap-1.5 items-center justify-center">
-                    <div className="text-grey-900 text-left font-button-text-font-family text-button-text-font-size leading-button-text-line-height font-button-text-font-weight relative">
-                    Upload Image
-                    </div>
-                </button>
             </div>
         </div>
 
