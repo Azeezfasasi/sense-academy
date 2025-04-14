@@ -8,6 +8,7 @@ import profileimage from '../../image/profileimage.svg';
 import HamburgerMenu from './MobileMenu';
 import { Button, Menu, Portal, CloseButton, Dialog } from "@chakra-ui/react"
 import { ProfileContext } from '@/assets/contextAPI/ProfileContext';
+import LogoutComponent from './LogoutComponent';
 
 function AccountHeader() {
     const { user, loading, logout } = useContext(ProfileContext);
@@ -97,9 +98,12 @@ function AccountHeader() {
                             <Menu.Item value="settings" as={Link} to="/app/settings" style={{textDecoration: "none", color: "black", cursor: "pointer"}}>
                                 Settings
                             </Menu.Item>
-                            <Menu.Item value="logout" as={Link} style={{textDecoration: "none", color: "red", cursor: "pointer"}} onClick={logout}>
+                            {/* <Menu.Item value="logout" as={Link} style={{textDecoration: "none", color: "red", cursor: "pointer"}} onClick={logout}>
                                 Logout
-                            </Menu.Item>
+                            </Menu.Item> */}
+                            <div className='w-[80%] border' style={{textDecoration: "none", color: "red", cursor: "pointer"}}>
+                                <LogoutComponent />
+                            </div>
                         </Menu.Content>
                     </Menu.Positioner>
                 </Portal>

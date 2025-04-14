@@ -80,9 +80,11 @@ const AccountMenu = () => {
             <Nav.Item as={Link} to="/app/assessment" eventKey="3" icon={<TaskIcon />}>
               Assessment
             </Nav.Item>
+            {user?.role === "Admin" && (
             <Nav.Item as={Link} to="/app/message" eventKey="4" icon={<EmailIcon />}>
-              Message
+              Notification
             </Nav.Item>
+            )}
             <Nav.Item as={Link} to="/app/certificates" eventKey="5" icon={<UserBadgeIcon />}>
               Certificates
             </Nav.Item>
