@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useCoupon } from '@/assets/contextAPI/CouponContext';
+import API_BASE_URL from '../config';
 
 const CreateCouponMain = () => {
   const { fetchCoupons } = useCoupon(); // Fetch coupons after creating a new one
@@ -20,7 +21,7 @@ const CreateCouponMain = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/coupons', {
+      const response = await fetch(`${API_BASE_URL}/api/coupons`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

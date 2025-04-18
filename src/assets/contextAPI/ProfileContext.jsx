@@ -1,10 +1,11 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API_BASE_URL from '../../config';
 
 const ProfileContext = createContext({});
 
-const API_BASE_URL = 'http://localhost:5000/api/profile';
+// const API_BASE_URL = 'http://localhost:5000/api/profile';
 
 const ProfileProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -45,7 +46,7 @@ const ProfileProvider = ({ children }) => {
 
     const fetchAllRoleCounts = useCallback(async () => {
         try {
-          const response = await axios.get(`${API_BASE_URL}/counts`, {
+          const response = await axios.get(`${API_BASE_URL}/api/profile/counts`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           setAdminCount(response.data.admins || 0);
@@ -66,7 +67,7 @@ const ProfileProvider = ({ children }) => {
     // Register a new user
     const register = useCallback(async (userData) => {
         try {
-            const response = await axios.post(`${API_BASE_URL}/register`, userData);
+            const response = await axios.post(`${API_BASE_URL}/api/profile/register`, userData);
             const { data } = response;
             return data;
         } catch (error) {
@@ -78,7 +79,7 @@ const ProfileProvider = ({ children }) => {
     // Log in an existing user
     const login = useCallback(async (email, password) => {
         try {
-            const response = await axios.post(`${API_BASE_URL}/login`, { email, password });
+            const response = await axios.post(`${API_BASE_URL}/api/profile/login`, { email, password });
             const { data } = response;
             setToken(data.token);
             localStorage.setItem('token', data.token);
@@ -101,7 +102,7 @@ const ProfileProvider = ({ children }) => {
     // Forgot Password
       const forgotPassword = useCallback(async (email) => {
         try {
-            const response = await axios.post(`${API_BASE_URL}/forgot-password`, { email });
+            const response = await axios.post(`${API_BASE_URL}/api/profile/forgot-password`, { email });
             return response.data;
         } catch (error) {
             console.error("Forgot Password Error", error);
@@ -112,7 +113,7 @@ const ProfileProvider = ({ children }) => {
     // Reset Password
     const resetPassword = useCallback(async (token, newPassword) => {
         try {
-            const response = await axios.post(`${API_BASE_URL}/reset-password`, { token, newPassword });
+            const response = await axios.post(`${API_BASE_URL}/api/profile/reset-password`, { token, newPassword });
             return response.data;
         } catch (error) {
             console.error("Reset Password Error:", error);
@@ -123,7 +124,7 @@ const ProfileProvider = ({ children }) => {
     // Fetch all users (Admin only)
     const fetchAllUsers = useCallback(async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/users`, {
+            const response = await axios.get(`${API_BASE_URL}/api/profile/users`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return response.data;
@@ -136,7 +137,7 @@ const ProfileProvider = ({ children }) => {
     // Fetch instructors (Admin only)
     const fetchInstructors = useCallback(async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/instructors`, {
+            const response = await axios.get(`${API_BASE_URL}/api/profile/instructors`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return response.data;
@@ -149,7 +150,7 @@ const ProfileProvider = ({ children }) => {
     // Fetch students (Admin only)
     const fetchStudents = useCallback(async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/students`, {
+            const response = await axios.get(`${API_BASE_URL}/api/profile/students`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return response.data;
@@ -162,7 +163,7 @@ const ProfileProvider = ({ children }) => {
     // Get Current User Profile
     const getCurrentUser = useCallback(async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/me`, {
+            const response = await axios.get(`${API_BASE_URL}/api/profile/me`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setUser(response.data);
@@ -176,7 +177,7 @@ const ProfileProvider = ({ children }) => {
     // Edit Current User Profile
     const editCurrentUser = useCallback(async (userData) => {
         try {
-            const response = await axios.put(`${API_BASE_URL}/me`, userData, {
+            const response = await axios.put(`${API_BASE_URL}/api/profile/me`, userData, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setUser(response.data);
@@ -190,7 +191,7 @@ const ProfileProvider = ({ children }) => {
     // Delete User by ID (Admin only)
     const deleteUser = useCallback(async (id) => {
         try {
-            const response = await axios.delete(`${API_BASE_URL}/${id}`, {
+            const response = await axios.delete(`${API_BASE_URL}/api/profile/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return response.data;
@@ -203,7 +204,7 @@ const ProfileProvider = ({ children }) => {
      // Update User by ID (Admin only)
     const updateUser = useCallback(async (id, userData) => {
         try {
-            const response = await axios.put(`${API_BASE_URL}/${id}`, userData, {
+            const response = await axios.put(`${API_BASE_URL}/api/profile/${id}`, userData, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return response.data;
@@ -216,7 +217,7 @@ const ProfileProvider = ({ children }) => {
     // Change User Role (Admin only)
     const changeUserRole = useCallback(async (id, role) => {
         try {
-            const response = await axios.patch(`${API_BASE_URL}/role/${id}`, { role }, {
+            const response = await axios.patch(`${API_BASE_URL}/api/profile/role/${id}`, { role }, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return response.data;
@@ -229,7 +230,7 @@ const ProfileProvider = ({ children }) => {
     // Disable/Enable User (Admin only)
     const disableUser = useCallback(async (id, disabled) => {
         try {
-            const response = await axios.patch(`${API_BASE_URL}/disable/${id}`, { disabled }, {
+            const response = await axios.patch(`${API_BASE_URL}/api/profile/disable/${id}`, { disabled }, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return response.data;
@@ -242,7 +243,7 @@ const ProfileProvider = ({ children }) => {
     // Add User (Admin only)
     const addUser = useCallback(async (userData) => {
         try {
-            const response = await axios.post(`${API_BASE_URL}/add`, userData, {
+            const response = await axios.post(`${API_BASE_URL}/api/profile/add`, userData, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return response.data;

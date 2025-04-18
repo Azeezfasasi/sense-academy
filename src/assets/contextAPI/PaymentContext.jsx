@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
+import API_BASE_URL from '../../config';
 
 const PaymentContext = createContext();
 
@@ -7,7 +8,7 @@ export const usePayment = () => {
   return useContext(PaymentContext);
 };
 
-const API_BASE_URL = 'http://localhost:5000/api/payments';
+// const API_BASE_URL = 'http://localhost:5000/api/payments';
 
 export const PaymentProvider = ({ children }) => {
   const [studentPayments, setStudentPayments] = useState([]);
@@ -20,7 +21,7 @@ export const PaymentProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`${API_BASE_URL}/student`, {
+      const response = await axios.get(`${API_BASE_URL}/api/payments/student`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setStudentPayments(response.data);
@@ -36,7 +37,7 @@ export const PaymentProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`${API_BASE_URL}/admin`, {
+      const response = await axios.get(`${API_BASE_URL}/api/payments/admin`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setAdminPayments(response.data);
@@ -52,7 +53,7 @@ export const PaymentProvider = ({ children }) => {
     setError(null);
     try {
       const response = await axios.put(
-        `${API_BASE_URL}/update-status`,
+        `${API_BASE_URL}/api/payments/update-status`,
         { paymentId, paymentStatus },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

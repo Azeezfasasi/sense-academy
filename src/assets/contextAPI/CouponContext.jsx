@@ -1,11 +1,10 @@
 import React, { createContext, useState, useContext } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../../config';
 
 const CouponContext = createContext();
 
 export const useCoupon = () => useContext(CouponContext);
-
-const API_BASE_URL = 'http://localhost:5000/api/coupons';
 
 export const CouponProvider = ({ children }) => {
   const [coupons, setCoupons] = useState([]);
@@ -37,7 +36,7 @@ const fetchCoupons = async () => {
   const applyCoupon = async (code) => {
     setLoading(true);
     try {
-      const response = await axios.post(`${API_BASE_URL}/apply`, { code }, {
+      const response = await axios.post(`${API_BASE_URL}/api/coupons/apply`, { code }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`, // Include token for authentication
         },
@@ -57,7 +56,7 @@ const fetchCoupons = async () => {
   const validateCoupon = async (code) => {
     setLoading(true);
     try {
-      const response = await axios.post(`${API_BASE_URL}/validate`, { code }, {
+      const response = await axios.post(`${API_BASE_URL}/api/coupons/validate`, { code }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`, // Include token for authentication
         },
@@ -76,7 +75,7 @@ const fetchCoupons = async () => {
   const updateCoupon = async (id, updatedData) => {
     setLoading(true);
     try {
-      const response = await axios.put(`${API_BASE_URL}/${id}`, updatedData, {
+      const response = await axios.put(`${API_BASE_URL}/api/coupons/${id}`, updatedData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -94,7 +93,7 @@ const fetchCoupons = async () => {
 const deleteCoupon = async (id) => {
     setLoading(true);
     try {
-      const response = await axios.delete(`${API_BASE_URL}/${id}`, {
+      const response = await axios.delete(`${API_BASE_URL}/api/coupons/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`, // Include token for authentication
         },
@@ -113,7 +112,7 @@ const deleteCoupon = async (id) => {
   const disableCoupon = async (id) => {
     setLoading(true);
     try {
-      const response = await axios.patch(`${API_BASE_URL}/${id}/disable`, {}, {
+      const response = await axios.patch(`${API_BASE_URL}/api/coupons/${id}/disable`, {}, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`, // Include token for authentication
         },

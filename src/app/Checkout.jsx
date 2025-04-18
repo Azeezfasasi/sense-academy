@@ -10,6 +10,7 @@ import { useCart } from '@/assets/contextAPI/CartContext';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 
 const MyBreadcrumb = ({ separator }) => (
   <Breadcrumb separator={separator}>
@@ -95,7 +96,7 @@ function Checkout() {
     try {
       // Step 1: Complete the course purchase
       await axios.post(
-        'http://localhost:5000/api/courses/purchase',
+        `${API_BASE_URL}/api/courses/purchase`,
         { cartItems: checkoutData.cartItems },
         {
             headers: { Authorization: `Bearer ${token}` }, // Use token from ProfileContext
@@ -104,7 +105,7 @@ function Checkout() {
 
        // Step 2: Create a payment record in the backend
     await axios.post(
-      'http://localhost:5000/api/payments/create',
+      `${API_BASE_URL}/api/payments/create`,
       {
         user: user._id, // User ID
         courses: cartItems.map((item) => item._id), // List of course IDs
