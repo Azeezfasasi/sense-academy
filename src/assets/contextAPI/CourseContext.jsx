@@ -26,6 +26,19 @@ const CourseProvider = ({ children }) => {
         }
     }, []);
 
+    const fetchPurchasedCourses = useCallback(async () => {
+        try {
+          const response = await axios.get(`${API_BASE_URL}/purchased`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setCourses(response.data); // Update the courses state with purchased courses
+          return response.data;
+        } catch (error) {
+          console.error('Failed to fetch purchased courses', error);
+          throw error;
+        }
+      }, [token]);
+
     // Function to fetch courses by a specific instructor
     const fetchCoursesByInstructor = useCallback(async (instructorId) => {
         try {
@@ -56,7 +69,6 @@ const CourseProvider = ({ children }) => {
     // Function to edit an existing course (Admin)
     const editCourse = useCallback(async (courseId, courseData) => {
         try {
-            // const response = await axios.put(`${API_BASE_URL}/${courseId}`, courseData, ...);
             const response = await axios.put(`${API_BASE_URL}/${courseId}`, 
                 courseData, {
                 headers: { Authorization: `Bearer ${token}` },
@@ -164,6 +176,7 @@ const CourseProvider = ({ children }) => {
         instructorCourses,
         loading,
         fetchAllCourses,
+        fetchPurchasedCourses,
         fetchCoursesByInstructor,
         addNewCourse,
         editCourse,

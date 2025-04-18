@@ -11,6 +11,7 @@ import TaskIcon from '@rsuite/icons/Task';
 import DonutChartIcon from '@rsuite/icons/DonutChart';
 import ExitIcon from '@rsuite/icons/Exit';
 import DashboardIcon from '@rsuite/icons/Dashboard';
+import CheckOutlineIcon from '@rsuite/icons/CheckOutline';
 import 'rsuite/dist/rsuite.min.css';
 import profileimage from '../../image/profileimage.svg';
 import share from '../../image/share.svg';
@@ -30,7 +31,7 @@ const MobileMenu = () => {
   
     const pathToKeyMap = {
       '/app/dashboard': '1',
-      '/app/myaccount': '2',
+      '/app/mycourses': '2',
       '/app/assessment': '3',
       '/app/message': '4',
       '/app/certificates': '5',
@@ -41,9 +42,10 @@ const MobileMenu = () => {
       '/app/manageusers': '8-1',
       '/app/createuser': '8-2',
       '/app/managecoupons': '9-1',
-      '/app/createcoupon': '9-2',
-      '/app/settings': '10-1',
-      '/app/profile': '10-2',
+      '/app/studentpaymenthistory': '10',
+      '/app/adminpaymenthistory': '11',
+      '/app/settings': '12',
+      '/app/profile': '12-1',
     };
   
     const activeKey = pathToKeyMap[location.pathname] || '1'; // fallback to '1'
@@ -82,7 +84,7 @@ const MobileMenu = () => {
                 <Nav.Item as={Link} to="/app/dashboard" eventKey="1" icon={<DashboardIcon />}>
                   Dashboard
                 </Nav.Item>
-                <Nav.Item as={Link} to="/app/myaccount" eventKey="2" icon={<StorageIcon />}>
+                <Nav.Item as={Link} to="/app/mycourses" eventKey="2" icon={<StorageIcon />}>
                   My Courses
                 </Nav.Item>
                 <Nav.Item as={Link} to="/app/assessment" eventKey="3" icon={<TaskIcon />}>
@@ -134,12 +136,24 @@ const MobileMenu = () => {
                   </Nav.Item>
                 </Nav.Menu>
 
+                {user?.role === "Student" && (
+                <Nav.Item as={Link} to="/app/studentpaymenthistory" eventKey="10" icon={<CheckOutlineIcon />}>
+                  Payment History
+                </Nav.Item>
+                )}
+
+                {user?.role === "Admin" && (
+                <Nav.Item as={Link} to="/app/adminpaymenthistory" eventKey="11" icon={<CheckOutlineIcon />}>
+                  Payment History
+                </Nav.Item>
+                )}
+
                 {/* For settings */}
-                <Nav.Menu placement="rightStart" eventKey="10" title="Settings" icon={<GearIcon />} >
-                  <Nav.Item as={Link} to="/app/settings" eventKey="10-1">
+                <Nav.Menu placement="rightStart" eventKey="12" title="Settings" icon={<GearIcon />} >
+                  <Nav.Item as={Link} to="/app/settings" eventKey="12-1">
                     Settings
                   </Nav.Item>
-                  <Nav.Item as={Link} to="/app/profile" eventKey="10-2">
+                  <Nav.Item as={Link} to="/app/profile" eventKey="12-2">
                     Profile
                   </Nav.Item>
                   <Nav.Item as={Link} to="" eventKey="10-3">

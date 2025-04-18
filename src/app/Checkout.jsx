@@ -9,6 +9,7 @@ import { ProfileContext } from '@/assets/contextAPI/ProfileContext';
 import { useCart } from '@/assets/contextAPI/CartContext';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const MyBreadcrumb = ({ separator }) => (
   <Breadcrumb separator={separator}>
@@ -34,9 +35,24 @@ const MyBreadcrumb = ({ separator }) => (
 );
 
 function Checkout() {
-  const { user } = useContext(ProfileContext); // Get user details
+  const { user, token } = useContext(ProfileContext); // Get user details
   const { cartItems } = useCart(); // Get cart items
   const navigate = useNavigate();
+
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+
+  // Calculate total price
+  const totalPrice = cartItems.reduce((sum, item) => sum + (item.regularPrice || 0), 0);
+
+  // Calculate discount amount
+  const discountAmount = appliedCoupon
+    ? appliedCoupon.type === 'Percentage'
+      ? (totalPrice * appliedCoupon.discount) / 100
+      : appliedCoupon.discount
+    : 0;
+
+  // Calculate discounted price
+  const discountedPrice = totalPrice - discountAmount;
 
   const [formData, setFormData] = useState({
     firstName: user?.firstName || '',
@@ -52,9 +68,9 @@ function Checkout() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Validate form data
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.phoneNumber || !formData.country) {
       toast.error('Please fill in all required fields.', {
@@ -63,7 +79,6 @@ function Checkout() {
       });
       return;
     }
-
     // Combine user details and cart items
     const checkoutData = {
       userDetails: formData,
@@ -73,25 +88,39 @@ function Checkout() {
         price: item.regularPrice,
         quantity: 1, // Assuming quantity is 1 for simplicity
       })),
-      totalPrice: cartItems.reduce((sum, item) => sum + (item.regularPrice || 0), 0),
+      // totalPrice: cartItems.reduce((sum, item) => sum + (item.regularPrice || 0), 0),
+      totalPrice: discountedPrice,
     };
-
-    console.log('Checkout Data:', checkoutData);
-
-    // Send checkout data to the backend (replace with actual API call)
-    toast.success('Checkout successful!', {
-      position: 'top-center',
-      autoClose: 4000,
-    });
-
-    // Redirect to a success page with checkout details or clear the cart
-    navigate('/app/success', {
-      state: {
-        totalItems: cartItems.length,
-        totalPrice: checkoutData.totalPrice,
-        paymentStatus: 'Paid', // Replace with actual payment status
-      },
-    });
+  
+    try {
+      await axios.post(
+        'http://localhost:5000/api/courses/purchase',
+        { cartItems: checkoutData.cartItems },
+        {
+            headers: { Authorization: `Bearer ${token}` }, // Use token from ProfileContext
+        }
+      );
+  
+      toast.success('Checkout successful!', {
+        position: 'top-center',
+        autoClose: 4000,
+      });
+  
+      // Redirect to a success page with checkout details
+      navigate('/app/success', {
+        state: {
+          totalItems: cartItems.length,
+          totalPrice: checkoutData.totalPrice,
+          paymentStatus: 'Paid', // Replace with actual payment status
+        },
+      });
+    } catch (error) {
+      console.error('Failed to complete checkout:', error);
+      toast.error('Checkout failed. Please try again.', {
+        position: 'top-center',
+        autoClose: 4000,
+      });
+    }
   };
 
   useEffect(() => {
@@ -128,7 +157,14 @@ function Checkout() {
           <CheckoutDetailInfo formData={formData} handleChange={handleChange} />
         </div>
         <div className="flex flex-col w-full lg:w-[30%]">
-          <CheckoutOrderDetails />
+          <CheckoutOrderDetails 
+           cartItems={cartItems}
+           appliedCoupon={appliedCoupon}
+           setAppliedCoupon={setAppliedCoupon}
+           totalPrice={totalPrice}
+           discountAmount={discountAmount}
+           discountedPrice={discountedPrice}
+           />
         </div>
       </form>
       <Footer />
