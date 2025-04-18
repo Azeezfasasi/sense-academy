@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useCoupon } from '@/assets/contextAPI/CouponContext';
-import API_BASE_URL from '../config';
+import API_BASE_URL from '../../../config';
 
 const CreateCouponMain = () => {
   const { fetchCoupons } = useCoupon(); // Fetch coupons after creating a new one
