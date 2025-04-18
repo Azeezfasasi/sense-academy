@@ -1,5 +1,6 @@
 import AccountHeader from '@/assets/components/account-components/AccountHeader'
 import AccountMenu from '@/assets/components/account-components/AccountMenu'
+import PaymentSummaryCards from '@/assets/components/account-components/PaymentSummaryCards';
 import DashboardStats from '@/assets/components/dashboard/DashboardStats';
 import ReviewStats from '@/assets/components/dashboard/ReviewStats';
 import React from 'react'
@@ -13,6 +14,7 @@ function Dashboard() {
         <AccountMenu />
       </aside>
       <section className="w-full px-4">
+        <PaymentSummaryCards />
         <DashboardStats />
         <ReviewStats />
       </section>

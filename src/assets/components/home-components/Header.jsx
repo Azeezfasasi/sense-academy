@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import senselogo from '../../image/senselogo.png'
+import { Badge, Button } from 'rsuite';
+import { useCart } from '@/assets/contextAPI/CartContext';
 
 function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const { cartItems } = useCart();
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -37,19 +40,23 @@ function Header() {
           <Link to="" className="text-gray-700 text-center text-sm font-medium border border-gray-700 px-1 py-2 rounded mr-[50px]">
             Teach on Sense Academy
           </Link>
-          <Link to="/app/cart" className="flex items-center gap-2 mr-0">
-            <span className="fa fa-shopping-cart text-[22px] text-blue-800 border p-2 rounded-full"></span>
-          </Link>
+          <Badge content={cartItems.length}>
+            <Link to="/app/cart" className="flex items-center gap-2 mr-0">
+              <span className="fa fa-shopping-cart text-[22px] text-blue-800 border p-2 rounded-full"></span>
+            </Link>
+          </Badge>
           <Link to="/login" className="px-3 py-2 rounded text-sm font-medium">
           <i className="fa-regular fa-circle-user text-[24px] text-blue-800 border p-2 rounded-full"></i>
           </Link>
         </div>
 
-        {/* Cart, acount and Hamburger Menu for Mobile */}
+        {/* Cart, account and Hamburger Menu for Mobile */}
         <div className='lg:hidden flex flex-row gap-6 mr-[-90px] md:mr-0'>
-          <Link to="/app/cart" className="flex items-center">
+          <Badge content={cartItems.length}>
+            <Link to="/app/cart" className="flex items-center">
               <span className="fa fa-shopping-cart text-[22px] text-gray-800"></span>
-          </Link>
+            </Link>
+          </Badge>
           <Link to="/login" className="flex items-center gap-0 mr-0">
             <i className="fa-regular fa-circle-user text-[24px] text-gray-800"></i>
           </Link>
@@ -87,9 +94,13 @@ function Header() {
                 <Link to="/app/coursecategory" className='text-gray-800'>All Courses</Link>
                 <Link to="" className='text-gray-800'>About Us</Link>
                 <Link to="" className='text-gray-800'>Contact Us</Link>
-                <Link to="/app/cart" className='text-gray-800'>
-                  <span className="fa fa-shopping-cart"></span> Cart
-                </Link>
+                <div>
+                  <Badge content={cartItems.length}>
+                    <Link to="/app/cart" className="text-gray-800">
+                      <span className="fa fa-shopping-cart"></span>
+                    </Link>
+                  </Badge>
+                </div>
                 <div className="flex flex-row justify-start items-center gap-4">
                     <Link to="/login" className="px-0 py-2 rounded text-sm font-medium flex flex-row items-center gap-1 text-gray-800">
                       <i className="fa-regular fa-circle-user text-[24px]"></i> My Account

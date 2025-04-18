@@ -60,14 +60,13 @@ function App() {
                   <Route path="/app/cart/" element={<Cart />} />
                   <Route path="/app/checkout" element={<Checkout />} />
                   <Route path="/app/coursedetails/:courseId" element={<CourseSingle />} />
-                  <Route path="/app/success" element={<Success />} />
 
                   <Route element={<PrivateRoutes allowedRoles={["Admin", "Student", "Instructor"]} />}>
-                    <Route path="/app/mycourses" element={<MyAccount />} />
+                    <Route path="/app/success" element={<Success />} />
                   </Route>
 
                   <Route element={<PrivateRoutes allowedRoles={["Admin", "Student", "Instructor"]} />}>
-                    <Route path="/app/mycourseOLD" element={<MyCourses />} />
+                    <Route path="/app/mycourses" element={<MyAccount />} />
                   </Route>
 
                   <Route element={<PrivateRoutes allowedRoles={["Admin", "Student", "Instructor"]} />}>
@@ -130,7 +129,7 @@ function App() {
                     <Route path="/app/studentpaymenthistory" element={<StudentPaymentHistory />} />
                   </Route>
 
-                  <Route element={<PrivateRoutes allowedRoles={["Admin", "Student", "Instructor"]} />}>
+                  <Route element={<PrivateRoutes allowedRoles={["Admin"]} />}>
                     <Route path="/app/adminpaymenthistory" element={<AdminPaymentHistory />} />
                   </Route>
 

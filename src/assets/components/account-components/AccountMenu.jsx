@@ -84,9 +84,13 @@ const AccountMenu = () => {
             <Nav.Item as={Link} to="/app/assessment" eventKey="3" icon={<TaskIcon />}>
               Assessment
             </Nav.Item>
-            {user?.role === "Admin" && (
             <Nav.Item as={Link} to="/app/message" eventKey="4" icon={<EmailIcon />}>
               Notification
+            </Nav.Item>
+
+            {user?.role === "Admin" && (
+            <Nav.Item as={Link} to="/app/message" eventKey="4" icon={<EmailIcon />}>
+              Send Notification
             </Nav.Item>
             )}
             <Nav.Item as={Link} to="/app/certificates" eventKey="5" icon={<UserBadgeIcon />}>

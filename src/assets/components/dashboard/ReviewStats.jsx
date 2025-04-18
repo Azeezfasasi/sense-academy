@@ -1,8 +1,11 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import { ProfileContext } from '@/assets/contextAPI/ProfileContext';
 
 function ReviewStats() {
+    const { user } = useContext(ProfileContext);
   return (
     <>
+    {user?.role === "Admin" && (
     <div className="flex flex-col gap-2.5 items-start justify-end shrink-0 relative overflow-hidden mt-[70px] md:mt-[40px] mb-[50px] md:mb-0 ">
         <div className="text-grey-900 text-left font-heading-4-subheading-font-family text-heading-4-subheading-font-size leading-heading-4-subheading-line-height font-heading-4-subheading-font-weight relative">
             Reviews
@@ -104,11 +107,10 @@ function ReviewStats() {
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            
+            </div>     
         </div>
     </div>
+    )}
 
     </>
   )
