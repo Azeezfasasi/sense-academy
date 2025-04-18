@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Input, InputGroup } from 'rsuite';
 import { FaRegUserCircle } from "react-icons/fa";
 import EyeCloseIcon from '@rsuite/icons/EyeClose';
@@ -17,6 +17,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -31,7 +32,11 @@ function Login() {
     }
     try {
       await login(email, password);
-      navigate('/app/myaccount')
+      // navigate('/app/dashboard')
+
+      // Redirect to the previous page or default to the dashboard
+      const from = location.state?.from?.pathname || '/app/dashboard';
+      navigate(from, { replace: true });
     } catch (error) {
       setError(error.message);
     }
@@ -40,7 +45,9 @@ function Login() {
   // Redirect if user is already logged in (using useEffect)
   useEffect(() => {
     if (user) {
-        navigate('/app/myaccount');
+        // navigate('/app/dashboard');
+        const from = location.state?.from?.pathname || '/app/dashboard';
+        navigate(from, { replace: true });
     }
 }, [user, navigate]); // Add user and navigate as dependencies
 

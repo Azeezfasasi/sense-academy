@@ -4,25 +4,6 @@ import ApplyCoupon from '../home-components/ApplyCoupon';
 // import { useCart } from '@/assets/contextAPI/CartContext';
 
 function CheckoutOrderDetails({ cartItems, appliedCoupon, setAppliedCoupon, totalPrice, discountAmount, discountedPrice }) {
-//   const { cartItems } = useCart();
-//   const [appliedCoupon, setAppliedCoupon] = useState(null);
-
-//   // Calculate total price
-//   const totalPrice = cartItems.reduce((sum, item) => sum + (item.regularPrice || 0), 0);
-
-//   // Calculate discount amount
-//   const discountAmount = appliedCoupon
-//     ? appliedCoupon.type === 'Percentage'
-//       ? (totalPrice * appliedCoupon.discount) / 100
-//       : appliedCoupon.discount
-//     : 0;
-
-//   // Calculate discounted price
-//   const discountedPrice = totalPrice - discountAmount;
-
-//   console.log('Applied Coupon:', appliedCoupon); // Debugging appliedCoupon
-//   console.log('Discount Amount:', discountAmount); // Debugging discountAmount
-
   return (
     <div className="w-full flex flex-col gap-4 items-start justify-start relative py-6 rounded-md border border-solid border-grey-border px-2 shadow-md">
       <div className="text-grey-900 text-left font-heading-4-subheading-font-family text-heading-4-subheading-font-size leading-heading-4-subheading-line-height font-heading-4-subheading-font-weight relative">

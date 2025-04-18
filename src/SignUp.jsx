@@ -59,7 +59,7 @@ function SignUp() {
         phoneNumber: phoneNumber,
       });
       alert('Registered successfully!'); 
-      navigate('/app/myaccount')
+      navigate('/app/dashboard')
     } catch (error) {
       setError(error.message);
     }

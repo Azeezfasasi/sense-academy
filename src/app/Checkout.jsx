@@ -4,7 +4,7 @@ import Footer from '../assets/components/home-components/Footer';
 import CheckoutDetailInfo from '../assets/components/course-components/CheckoutDetailInfo';
 import CheckoutOrderDetails from '../assets/components/course-components/CheckoutOrderDetails';
 import { Breadcrumb } from 'rsuite';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ProfileContext } from '@/assets/contextAPI/ProfileContext';
 import { useCart } from '@/assets/contextAPI/CartContext';
 import { toast, ToastContainer } from 'react-toastify';
@@ -36,8 +36,9 @@ const MyBreadcrumb = ({ separator }) => (
 
 function Checkout() {
   const { user, token } = useContext(ProfileContext); // Get user details
-  const { cartItems } = useCart(); // Get cart items
+  const { cartItems, clearCart } = useCart(); // Get cart items
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [appliedCoupon, setAppliedCoupon] = useState(null);
 
@@ -61,7 +62,6 @@ function Checkout() {
     phoneNumber: user?.phoneNumber || '',
     country: user?.country || '',
     state: user?.state || '',
-    // state: '',
   });
 
   const handleChange = (e) => {
@@ -93,6 +93,7 @@ function Checkout() {
     };
   
     try {
+      // Step 1: Complete the course purchase
       await axios.post(
         'http://localhost:5000/api/courses/purchase',
         { cartItems: checkoutData.cartItems },
@@ -100,6 +101,23 @@ function Checkout() {
             headers: { Authorization: `Bearer ${token}` }, // Use token from ProfileContext
         }
       );
+
+       // Step 2: Create a payment record in the backend
+    await axios.post(
+      'http://localhost:5000/api/payments/create',
+      {
+        user: user._id, // User ID
+        courses: cartItems.map((item) => item._id), // List of course IDs
+        totalAmount: discountedPrice, // Total payment amount
+        paymentStatus: 'Paid', // Payment status
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+      // Step 3: Clear the cart
+      clearCart();
   
       toast.success('Checkout successful!', {
         position: 'top-center',
@@ -136,7 +154,7 @@ function Checkout() {
         navigate('/login');
       }, 5000);
     }
-  }, [user, navigate]);
+  }, [user, navigate, location]);
 
   // If user is not logged in, don't render the checkout page
   if (!user) {
