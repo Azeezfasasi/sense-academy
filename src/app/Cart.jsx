@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Header from '../assets/components/home-components/Header'
 import Footer from '../assets/components/home-components/Footer'
 import CartItemDetails from '../assets/components/course-components/CartItemDetails'
@@ -28,12 +28,7 @@ function Cart() {
       </div>
     </div>
     <div className='flex flex-col lg:flex-row justify-start lg:justify-between w-full p-2 m-0 mx-auto pt-[30px]'>
-      <div className='flex flex-col w-full lg:w-[70%] p-0 lg:px-4'>
-        <CartItemDetails />
-      </div>
-      <div className='flex flex-col w-full lg:w-[30%]'>
-        <CartOrderDetails />
-      </div>
+      <CartItemDetails />
     </div>
     <Footer />
     </>

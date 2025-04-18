@@ -9,6 +9,7 @@ import { ProfileContext } from '@/assets/contextAPI/ProfileContext';
 import { useCart } from '@/assets/contextAPI/CartContext';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { PaystackButton } from 'react-paystack'; // Import PaystackButton
 
 const MyBreadcrumb = ({ separator }) => (
   <Breadcrumb separator={separator}>
@@ -44,54 +45,41 @@ function Checkout() {
     email: user?.email || '',
     phoneNumber: user?.phoneNumber || '',
     country: user?.country || '',
-    state: user?.state || '',
-    // state: '',
+    state: '',
   });
+
+  const totalPrice = cartItems.reduce((sum, item) => sum + (item.regularPrice || 0), 0);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handlePaymentSuccess = (reference) => {
+    console.log('Payment successful:', reference);
 
-    // Validate form data
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phoneNumber || !formData.country) {
-      toast.error('Please fill in all required fields.', {
-        position: 'top-center',
-        autoClose: 4000,
-      });
-      return;
-    }
-
-    // Combine user details and cart items
-    const checkoutData = {
-      userDetails: formData,
-      cartItems: cartItems.map((item) => ({
-        id: item._id,
-        title: item.title,
-        price: item.regularPrice,
-        quantity: 1, // Assuming quantity is 1 for simplicity
-      })),
-      totalPrice: cartItems.reduce((sum, item) => sum + (item.regularPrice || 0), 0),
-    };
-
-    console.log('Checkout Data:', checkoutData);
-
-    // Send checkout data to the backend (replace with actual API call)
-    toast.success('Checkout successful!', {
-      position: 'top-center',
-      autoClose: 4000,
-    });
-
-    // Redirect to a success page with checkout details or clear the cart
+    // Redirect to the success page with checkout details
     navigate('/app/success', {
       state: {
         totalItems: cartItems.length,
-        totalPrice: checkoutData.totalPrice,
-        paymentStatus: 'Paid', // Replace with actual payment status
+        totalPrice: totalPrice,
+        paymentStatus: 'Paid',
       },
     });
+  };
+
+  const handlePaymentClose = () => {
+    toast.info('Payment popup closed. Please complete your payment to proceed.', {
+      position: 'top-center',
+      autoClose: 4000,
+    });
+  };
+
+  const paystackConfig = {
+    email: formData.email,
+    amount: totalPrice * 100, // Convert to kobo (Paystack uses the smallest currency unit)
+    publicKey: 'your-paystack-public-key', // Replace with your Paystack public key
+    onSuccess: handlePaymentSuccess,
+    onClose: handlePaymentClose,
   };
 
   useEffect(() => {
@@ -123,12 +111,20 @@ function Checkout() {
           <MyBreadcrumb separator={<i className="fa-solid fa-chevron-right text-[10px] text-blue-700"></i>} />
         </div>
       </div>
-      <form onSubmit={handleSubmit} className="flex flex-col lg:flex-row justify-around w-full p-2 m-0 mx-auto pt-[10px] lg:pt-[30px]">
+      <form className="flex flex-col lg:flex-row justify-around w-full p-2 m-0 mx-auto pt-[10px] lg:pt-[30px]">
         <div className="flex flex-col w-full lg:w-[70%] px-1 lg:px-4">
           <CheckoutDetailInfo formData={formData} handleChange={handleChange} />
         </div>
         <div className="flex flex-col w-full lg:w-[30%]">
           <CheckoutOrderDetails />
+          <div className="mt-4">
+            <PaystackButton
+              {...paystackConfig}
+              className="bg-green-600 text-white py-3 px-6 rounded-lg shadow hover:bg-green-700 transition w-full text-center"
+            >
+              Proceed to Payment
+            </PaystackButton>
+          </div>
         </div>
       </form>
       <Footer />

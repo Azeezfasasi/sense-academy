@@ -98,10 +98,7 @@ function AccountHeader() {
                             <Menu.Item value="settings" as={Link} to="/app/settings" style={{textDecoration: "none", color: "black", cursor: "pointer"}}>
                                 Settings
                             </Menu.Item>
-                            {/* <Menu.Item value="logout" as={Link} style={{textDecoration: "none", color: "red", cursor: "pointer"}} onClick={logout}>
-                                Logout
-                            </Menu.Item> */}
-                            <div className='w-[80%] border' style={{textDecoration: "none", color: "red", cursor: "pointer"}}>
+                            <div className='w-[100%] flex flex-row justify-start' style={{textDecoration: "none", color: "red", cursor: "pointer"}}>
                                 <LogoutComponent />
                             </div>
                         </Menu.Content>

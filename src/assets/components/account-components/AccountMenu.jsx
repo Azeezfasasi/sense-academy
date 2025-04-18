@@ -15,6 +15,7 @@ import 'rsuite/dist/rsuite.min.css';
 import profileimage from '../../image/profileimage.svg';
 import share from '../../image/share.svg';
 import { ProfileContext } from '@/assets/contextAPI/ProfileContext';
+import LogoutComponent from './LogoutComponent';
 
 const AccountMenu = () => {
   const { user, loading } = useContext(ProfileContext);
@@ -153,10 +154,10 @@ const AccountMenu = () => {
               </Nav.Item>
             </Nav.Menu>
 
-            {/* For Logout */}
-            <Nav.Item as={Link} to="/" eventKey="11" icon={<ExitIcon />} style={{color: "red"}}>
-              Logout
+            <Nav.Item icon={<ExitIcon />} style={{ display: "flex", paddingLeft: "47px"}}>
+              <LogoutComponent />
             </Nav.Item>
+
 
           </Nav>
         </Sidenav.Body>

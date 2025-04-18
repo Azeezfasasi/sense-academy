@@ -16,6 +16,7 @@ import profileimage from '../../image/profileimage.svg';
 import share from '../../image/share.svg';
 import { Menu, X } from 'lucide-react';
 import { ProfileContext } from '@/assets/contextAPI/ProfileContext';
+import LogoutComponent from './LogoutComponent';
 
 const MobileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -153,8 +154,8 @@ const MobileMenu = () => {
                 </Nav.Menu>
 
                 {/* For Logout */}
-                <Nav.Item as={Link} to="/" eventKey="11" icon={<ExitIcon />} style={{color: "red"}} onClick={logout}>
-                  Logout
+                <Nav.Item icon={<ExitIcon />} style={{ display: "flex", paddingLeft: "47px"}}>
+                  <LogoutComponent />
                 </Nav.Item>
 
               </Nav>

@@ -1,6 +1,6 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import { ProfileContext } from "@/assets/contextAPI/ProfileContext";
-import { Modal, ButtonToolbar, Button, Placeholder } from 'rsuite';
+import { Modal, ButtonToolbar, Button } from 'rsuite';
   
   const LogoutComponent = () => {
     const { logout } = useContext(ProfileContext);
@@ -16,7 +16,12 @@ import { Modal, ButtonToolbar, Button, Placeholder } from 'rsuite';
       <>
       <div className="">
         <ButtonToolbar style={{display: "flex", justifyContent: "left", }}>
-            <Button size="xs" onClick={() => handleOpen('xs')} style={{width: "100%", backgroundColor: "transparent", textAlign: "left"}}>Logout</Button>
+            <Button 
+            size="xs" 
+            onClick={() => handleOpen('xs')} 
+            style={{width: "100%", backgroundColor: "transparent", textAlign: "left"}}
+            
+            ><p className="w-full bg-transparent text-[15px] lg:text-[15px] text-red-700 text-left">Logout</p></Button>
         </ButtonToolbar>
 
         <Modal size={size} open={open} onClose={handleClose}>
@@ -24,7 +29,7 @@ import { Modal, ButtonToolbar, Button, Placeholder } from 'rsuite';
             <Modal.Title style={{fontWeight: "bold"}}>Logout</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <p>Logout from your account</p>
+                <p>Do you want to logout from your account?</p>
             </Modal.Body>
             <Modal.Footer>
             <Button onClick={handleClose} appearance="subtle">

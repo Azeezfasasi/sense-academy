@@ -190,7 +190,7 @@ const ProfileProvider = ({ children }) => {
     // Delete User by ID (Admin only)
     const deleteUser = useCallback(async (id) => {
         try {
-            const response = await axios.delete(`${API_BASE_URL}/users/${id}`, {
+            const response = await axios.delete(`${API_BASE_URL}/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return response.data;
@@ -203,7 +203,7 @@ const ProfileProvider = ({ children }) => {
      // Update User by ID (Admin only)
     const updateUser = useCallback(async (id, userData) => {
         try {
-            const response = await axios.put(`${API_BASE_URL}/users/${id}`, userData, {
+            const response = await axios.put(`${API_BASE_URL}/${id}`, userData, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return response.data;
@@ -216,7 +216,7 @@ const ProfileProvider = ({ children }) => {
     // Change User Role (Admin only)
     const changeUserRole = useCallback(async (id, role) => {
         try {
-            const response = await axios.patch(`${API_BASE_URL}/users/${id}/role`, { role }, {
+            const response = await axios.patch(`${API_BASE_URL}/role/${id}`, { role }, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return response.data;
@@ -229,7 +229,7 @@ const ProfileProvider = ({ children }) => {
     // Disable/Enable User (Admin only)
     const disableUser = useCallback(async (id, disabled) => {
         try {
-            const response = await axios.patch(`${API_BASE_URL}/users/${id}/disable`, { disabled }, {
+            const response = await axios.patch(`${API_BASE_URL}/disable/${id}`, { disabled }, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return response.data;
@@ -242,7 +242,7 @@ const ProfileProvider = ({ children }) => {
     // Add User (Admin only)
     const addUser = useCallback(async (userData) => {
         try {
-            const response = await axios.post(`${API_BASE_URL}/users`, userData, {
+            const response = await axios.post(`${API_BASE_URL}/add`, userData, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return response.data;

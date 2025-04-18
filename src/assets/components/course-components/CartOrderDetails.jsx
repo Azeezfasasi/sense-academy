@@ -1,7 +1,20 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Link } from 'react-router-dom'
+import { useCart } from '@/assets/contextAPI/CartContext';
+import { CourseContext } from '@/assets/contextAPI/CourseContext';
 
 function CartOrderDetails() {
+    const { cartItems } = useCart();
+    const { courses } = useContext(CourseContext);
+    
+    const cartCourses = courses.filter((course) =>
+        cartItems.includes(course._id)
+    );
+    
+    if (cartCourses.length === 0) {
+        return <div className="text-center mt-10 text-lg">Your cart is empty.</div>;
+    }
+    
   return (
     <>
     <div className="flex flex-col gap-2 items-start justify-start relative p-0 mt-0">
@@ -9,6 +22,7 @@ function CartOrderDetails() {
             Order Details
         </div>
         <div className="bg-grey-background rounded-lg border-solid border-grey-border border shadow-md shrink-0 w-full lg:w-[95%] relative py-4 mx-auto">
+        {cartCourses.map((course) => (
             <div className="flex flex-col gap-4 justify-start items-center">
                 <div className="w-full flex flex-col gap-4 items-center justify-start shrink-0 relative">
                     <div className="w-full flex flex-row items-start justify-between px-6 shrink-0 relative">
@@ -39,6 +53,7 @@ function CartOrderDetails() {
                     </div>
                 </div>
             </div>
+        ))}
         </div>
         <Link to="/app/checkout" className="w-full lg:w-[95%] bg-grey-text-dark rounded-lg pt-2.5 pr-6 pb-2.5 pl-6 flex flex-row gap-1.5 items-center justify-center h-12 relative cursor-pointer border mx-auto" style={{textDecoration: 'none'}}>
             <div className="text-white text-left font-button-text-font-family text-button-text-font-size leading-button-text-line-height font-button-text-font-weight relative">

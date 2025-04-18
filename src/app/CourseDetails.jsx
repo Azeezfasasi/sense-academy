@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import Header from '../assets/components/home-components/Header';
 import CourseTitleInfo from '../assets/components/course-components/CourseTitleInfo';
 import CourseDetailsButtons from '../assets/components/course-components/CourseDetailsButtons';
@@ -9,18 +9,31 @@ import CourseIntroVid from '../assets/components/course-components/CourseIntroVi
 import Footer from '../assets/components/home-components/Footer';
 import { Breadcrumb } from 'rsuite';
 import { Link } from 'react-router-dom';
+import { CourseContext } from '@/assets/contextAPI/CourseContext';
+import { useParams } from 'react-router-dom';
 
-const MyBreadcrumb = ({ separator }) => (
-  <Breadcrumb separator={separator}>
-    <Breadcrumb.Item>
-      <Link to="/" className='text-[16px] mr-2'><i className="fa-solid fa-house text-blue-700"></i></Link>
-    </Breadcrumb.Item>
-    <Breadcrumb.Item>
-      <Link to="/app/coursecategory" className='text-[16px] mr-2 ml-2'>Courses</Link>
-    </Breadcrumb.Item>
-    <Breadcrumb.Item active className='text-[16px] ml-2'>Intro to User Experience Design</Breadcrumb.Item>
-  </Breadcrumb>
-);
+function MyBreadcrumb({ separator }) {
+  const { courseId } = useParams();
+  const { courses, fetchAllCourses, loading } = useContext(CourseContext);
+  
+  useEffect(() => {
+    fetchAllCourses();
+  }, [fetchAllCourses]);
+
+  const course = courses.find((c) => c._id === courseId); // ✅ get one course
+
+  return (
+    <Breadcrumb separator={separator}>
+      <Breadcrumb.Item>
+        <Link to="/" className='text-[16px] mr-2'><i className="fa-solid fa-house text-blue-700"></i></Link>
+      </Breadcrumb.Item>
+      <Breadcrumb.Item>
+        <Link to="/app/coursecategory" className='text-[16px] mr-2 ml-2'>Courses</Link>
+      </Breadcrumb.Item>
+      <Breadcrumb.Item active className='text-[16px] ml-2'>{course?.title} </Breadcrumb.Item>
+    </Breadcrumb>
+  )
+}
 
 function CourseSingle() {
   return (
