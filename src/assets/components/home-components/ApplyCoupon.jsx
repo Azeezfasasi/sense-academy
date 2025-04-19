@@ -4,7 +4,7 @@ import { ProfileContext } from '@/assets/contextAPI/ProfileContext'; // Import P
 import couponicon from '../../image/couponicon.svg';
 import { Accordion, Stack, Avatar } from 'rsuite';
 import axios from 'axios';
-import API_BASE_URL from '../../config';
+import API_BASE_URL from '../../../config';
 
 const Header = (props) => {
   const { title } = props;
