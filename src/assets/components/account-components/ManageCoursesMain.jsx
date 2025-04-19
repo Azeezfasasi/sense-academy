@@ -38,8 +38,29 @@ const ManageCoursesMain = () => {
     setIsEditModalOpen(true);
   };
 
+  // const handleEditSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const updatedCourse = {
+  //     title: e.target.title.value,
+  //     subTitle: e.target.subTitle.value,
+  //     description: e.target.description.value,
+  //     category: e.target.category.value,
+  //     regularPrice: Number(e.target.regularPrice.value),
+  //     discountedPrice: Number(e.target.discountedPrice.value),
+  //     level: e.target.level.value,
+  //     duration: e.target.duration.value,
+  //     instructor: e.target.instructor.value,
+  //     thumbnail: e.target.thumbnail.value,
+  //     introVideo: formData.introVideo,
+  //     introImage: formData.introImage?.path || formData.introImage,
+  //     chapters,
+  //   };
+  //   await editCourse(selectedCourse._id, updatedCourse);
+  //   setIsEditModalOpen(false);
+  // };
   const handleEditSubmit = async (e) => {
     e.preventDefault();
+  
     const updatedCourse = {
       title: e.target.title.value,
       subTitle: e.target.subTitle.value,
@@ -52,11 +73,18 @@ const ManageCoursesMain = () => {
       instructor: e.target.instructor.value,
       thumbnail: e.target.thumbnail.value,
       introVideo: formData.introVideo,
-      introImage: formData.introImage,
-      chapters,
+      introImage: formData.introImage?.path || formData.introImage, // Handle introImage
+      chapters: JSON.stringify(chapters), // Stringify chapters array
     };
-    await editCourse(selectedCourse._id, updatedCourse);
-    setIsEditModalOpen(false);
+  
+    try {
+      await editCourse(selectedCourse._id, updatedCourse);
+      alert('Course updated successfully!');
+      setIsEditModalOpen(false);
+    } catch (error) {
+      console.error('Failed to update course:', error);
+      alert('Failed to update course');
+    }
   };
 
   const handleDelete = async (courseId) => {

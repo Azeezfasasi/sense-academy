@@ -20,7 +20,7 @@ const CourseCreationForm = () => {
     level: '',
     language: '',
     introVideo: '',
-    introImage: '',
+    introImage: null,
     material: '',
     createdBy: '',
   });
@@ -97,15 +97,33 @@ const CourseCreationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const sanitizedCourseData = {
-      ...formData,
-      description: formData.description.replace(/<[^>]*>/g, ''),
-      subTitle: formData.subTitle.replace(/<[^>]*>/g, ''),
-      chapters,
-    };
+    const formDataToSend = new FormData();
+    formDataToSend.append('title', formData.title);
+    formDataToSend.append('subTitle', formData.subTitle.replace(/<[^>]*>/g, ''));
+    formDataToSend.append('description', formData.description.replace(/<[^>]*>/g, ''));
+    formDataToSend.append('category', formData.category);
+    formDataToSend.append('duration', formData.duration);
+    formDataToSend.append('video', formData.video);
+    formDataToSend.append('regularPrice', formData.regularPrice);
+    formDataToSend.append('discountedPrice', formData.discountedPrice);
+    formDataToSend.append('level', formData.level);
+    formDataToSend.append('language', formData.language);
+    formDataToSend.append('introVideo', formData.introVideo);
+    formDataToSend.append('material', formData.material);
+    formDataToSend.append('createdBy', formData.createdBy);
+    // formDataToSend.append('chapters', JSON.stringify(chapters));
+
+    // Append chapters as a stringified JSON
+    if (chapters.length > 0) {
+      formDataToSend.append('chapters', JSON.stringify(chapters));
+    }
+
+    if (formData.introImage) {
+      formDataToSend.append('introImage', formData.introImage); // Append the file
+    }
 
     try {
-      await addNewCourse(sanitizedCourseData);
+      await addNewCourse(formDataToSend);
       alert('Course created successfully!');
       setFormData({
         title: '',
@@ -119,7 +137,7 @@ const CourseCreationForm = () => {
         level: '',
         language: '',
         introVideo: '',
-        introImage: '',
+        introImage: null,
         material: '',
         createdBy: '',
       });
@@ -257,13 +275,15 @@ const CourseCreationForm = () => {
         <ul>{videoFiles}</ul>
       </div>
 
+      {/* Intro Image */}
       <div>
         <label className="block font-medium">Intro Image</label>
         <div {...getImageRootProps()} className={`border-2 border-dashed p-4 rounded ${isImageDragActive ? 'bg-blue-100' : 'bg-white'}`}>
           <input {...getImageInputProps()} />
           <p>Drag & drop or click to upload image</p>
         </div>
-        <ul>{imageFiles}</ul>
+        {/* <ul>{imageFiles}</ul> */}
+        {formData.introImage && <p>{formData.introImage.name}</p>}
       </div>
 
       {/* Chapters & Lessons */}

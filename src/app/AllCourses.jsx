@@ -49,7 +49,8 @@ function AllCourses() {
                                     />
                                 </div>
                                 <div className="text-grey-700 text-left font-label-font-family text-label-font-size font-label-font-weight relative">
-                                    {course.rating.toFixed(1)} / 5
+                                    {/* {course.rating.toFixed(1)} / 5 */}
+                                    {Number(course.rating || 0).toFixed(1)} / 5
                                 </div>
                             </div>
                             <div className="text-grey-700 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
