@@ -86,6 +86,11 @@ const ManageCouponMain = () => {
           </Cell>
         </Column>
 
+        <Column width={200}>
+          <HeaderCell style={{fontWeight: "bold"}}>Used Count</HeaderCell>
+          <Cell dataKey="usedCount" />
+        </Column>
+
         <Column width={300}>
           <HeaderCell style={{fontWeight: "bold"}}>Action</HeaderCell>
           <Cell>
