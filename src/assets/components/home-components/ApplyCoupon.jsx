@@ -4,6 +4,7 @@ import { ProfileContext } from '@/assets/contextAPI/ProfileContext'; // Import P
 import couponicon from '../../image/couponicon.svg';
 import { Accordion, Stack, Avatar } from 'rsuite';
 import axios from 'axios';
+import API_BASE_URL from '../../config';
 
 const Header = (props) => {
   const { title } = props;
@@ -35,7 +36,7 @@ const ApplyCoupon = ({ appliedCoupon, setAppliedCoupon }) => {
       const cartItems = JSON.parse(localStorage.getItem('cartItems')) || []; // Get cart items from local storage
       console.log('Applying coupon with code:', couponCode, 'and cart items:', cartItems);
 
-      const response = await axios.post('http://localhost:5000/api/coupons/apply', {
+      const response = await axios.post(`${API_BASE_URL}/api/coupons/apply`, {
         code: couponCode,
         cartItems,
       }, {
