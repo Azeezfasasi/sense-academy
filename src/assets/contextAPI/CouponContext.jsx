@@ -16,7 +16,7 @@ export const CouponProvider = ({ children }) => {
 const fetchCoupons = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_BASE_URL}`, {
+      const response = await axios.get(`${API_BASE_URL}/api/coupons`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

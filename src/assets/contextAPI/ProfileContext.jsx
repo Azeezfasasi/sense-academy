@@ -1,11 +1,9 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import API_BASE_URL from '../../config';
+import API_BASE_URL from '@/config';
 
 const ProfileContext = createContext({});
-
-// const API_BASE_URL = 'https://sense-academy-backend.onrender.com'
 
 const ProfileProvider = ({ children }) => {
     const [user, setUser] = useState(null);
