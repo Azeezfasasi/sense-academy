@@ -15,7 +15,6 @@ const ManageCoursesMain = () => {
     editCourse, 
     deleteCourse, 
     changeCourseStatus, 
-    viewEnrolledUsers, 
     approveCourse 
   } = useContext(CourseContext);
 
@@ -26,7 +25,6 @@ const ManageCoursesMain = () => {
   const [chapters, setChapters] = useState([]);
   const [formData, setFormData] = useState({ introVideo: null, introImage: null });
 
-
   const handleChangeLimit = (dataKey) => {
     setPage(1);
     setLimit(dataKey);
@@ -35,31 +33,53 @@ const ManageCoursesMain = () => {
   const paginatedData = courses.slice((page - 1) * limit, page * limit);
 
   const handleEdit = (course) => {
-    console.log('Edit:', course);
     setSelectedCourse(course);
+    setChapters(course.chapters || []);
     setIsEditModalOpen(true);
   };
-  
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    const updatedCourse = {
+      title: e.target.title.value,
+      subTitle: e.target.subTitle.value,
+      description: e.target.description.value,
+      category: e.target.category.value,
+      regularPrice: Number(e.target.regularPrice.value),
+      discountedPrice: Number(e.target.discountedPrice.value),
+      level: e.target.level.value,
+      duration: e.target.duration.value,
+      instructor: e.target.instructor.value,
+      thumbnail: e.target.thumbnail.value,
+      introVideo: formData.introVideo,
+      introImage: formData.introImage,
+      chapters,
+    };
+    await editCourse(selectedCourse._id, updatedCourse);
+    setIsEditModalOpen(false);
+  };
+
   const handleDelete = async (courseId) => {
     if (window.confirm("Are you sure you want to delete this course?")) {
       await deleteCourse(courseId);
     }
-  }; 
+  };
 
   const handleChangeStatus = async (courseId, selectedStatus) => {
-    await changeCourseStatus(courseId, selectedStatus);
-  };
-  
-
-  const handleApprove = async (courseId) => {
-    await approveCourse(courseId);
+    try {
+      await changeCourseStatus(courseId, selectedStatus);
+      alert('Course status updated successfully');
+    } catch (error) {
+      console.error('Failed to change course status:', error);
+      alert('Failed to update course status');
+    }
   };
 
   const addLesson = (chapterIndex) => {
     const newChapters = [...chapters];
     newChapters[chapterIndex].lessons = [
       ...newChapters[chapterIndex].lessons,
-      { title: '', duration: '', video: '' },
+      { title: '', duration: '', videoLink: '' },
     ];
     setChapters(newChapters);
   };
@@ -68,9 +88,26 @@ const ManageCoursesMain = () => {
     setChapters([...chapters, { title: '', lessons: [] }]);
   };
 
+  // const handleLessonTitleChange = (chapterIndex, lessonIndex, field, value) => {
+  //   const newChapters = [...chapters];
+  //   newChapters[chapterIndex].lessons[lessonIndex][field] = value;
+  //   setChapters(newChapters);
+  // };
   const handleLessonTitleChange = (chapterIndex, lessonIndex, event) => {
     const newChapters = [...chapters];
     newChapters[chapterIndex].lessons[lessonIndex].title = event.target.value;
+    setChapters(newChapters);
+  };
+
+  // const handleChapterTitleChange = (chapterIndex, field, value) => {
+  //   const newChapters = [...chapters];
+  //   newChapters[chapterIndex][field] = value;
+  //   setChapters(newChapters);
+  // };
+
+  const handleChapterTitleChange = (index, event) => {
+    const newChapters = [...chapters];
+    newChapters[index].title = event.target.value;
     setChapters(newChapters);
   };
 
@@ -85,7 +122,7 @@ const ManageCoursesMain = () => {
     newChapters[chapterIndex].lessons[lessonIndex].videoLink = event.target.value;
     setChapters(newChapters);
   };
-  
+
   const handleRemoveChapter = (chapterIndex) => {
     const newChapters = chapters.filter((_, index) => index !== chapterIndex);
     setChapters(newChapters);
@@ -100,38 +137,38 @@ const ManageCoursesMain = () => {
   };
 
   const {
-      getRootProps: getVideoRootProps,
-      getInputProps: getVideoInputProps,
-      acceptedFiles: acceptedVideoFiles,
-      isDragActive: isVideoDragActive,
-    } = useDropzone({ accept: { 'video/*': [] } });
-  
-    const {
-      getRootProps: getImageRootProps,
-      getInputProps: getImageInputProps,
-      acceptedFiles: acceptedImageFiles,
-      isDragActive: isImageDragActive,
-    } = useDropzone({ accept: { 'image/*': [] } });
-  
-    const videoFiles = acceptedVideoFiles.map((file) => (
-      <li key={file.path}>{file.path} - {file.size} bytes</li>
-    ));
-  
-    const imageFiles = acceptedImageFiles.map((file) => (
-      <li key={file.path}>{file.path} - {file.size} bytes</li>
-    ));
-  
-    useEffect(() => {
-      if (acceptedVideoFiles.length > 0) {
-        setFormData((prev) => ({ ...prev, introVideo: acceptedVideoFiles[0] }));
-      }
-    }, [acceptedVideoFiles]);
-  
-    useEffect(() => {
-      if (acceptedImageFiles.length > 0) {
-        setFormData((prev) => ({ ...prev, introImage: acceptedImageFiles[0] }));
-      }
-    }, [acceptedImageFiles]);
+    getRootProps: getVideoRootProps,
+    getInputProps: getVideoInputProps,
+    acceptedFiles: acceptedVideoFiles,
+    isDragActive: isVideoDragActive,
+  } = useDropzone({ accept: { 'video/*': [] } });
+
+  const {
+    getRootProps: getImageRootProps,
+    getInputProps: getImageInputProps,
+    acceptedFiles: acceptedImageFiles,
+    isDragActive: isImageDragActive,
+  } = useDropzone({ accept: { 'image/*': [] } });
+
+  const videoFiles = acceptedVideoFiles.map((file) => (
+    <li key={file.path}>{file.path} - {file.size} bytes</li>
+  ));
+
+  const imageFiles = acceptedImageFiles.map((file) => (
+    <li key={file.path}>{file.path} - {file.size} bytes</li>
+    ));
+
+  useEffect(() => {
+    if (acceptedVideoFiles.length > 0) {
+      setFormData((prev) => ({ ...prev, introVideo: acceptedVideoFiles[0] }));
+    }
+  }, [acceptedVideoFiles]);
+
+  useEffect(() => {
+    if (acceptedImageFiles.length > 0) {
+      setFormData((prev) => ({ ...prev, introImage: acceptedImageFiles[0] }));
+    }
+  }, [acceptedImageFiles]);
 
   return (
     <div>
@@ -185,15 +222,12 @@ const ManageCoursesMain = () => {
                   >
                     Delete
                   </Button>
-                  <Dropdown title={rowData.status || "Choose Status"} placement="bottomEnd" size="xs" container={() => document.body} style={{border: "1px solid blue"}}>
-                    <Dropdown.Menu onSelect={(status) => handleChangeStatus(rowData._id, status)}>
-                      <Dropdown.Item eventKey="Approved">Approved</Dropdown.Item>
-                      <Dropdown.Item eventKey="Pending">Pending</Dropdown.Item>
-                      <Dropdown.Item eventKey="Published">Published</Dropdown.Item>
-                      <Dropdown.Item eventKey="Rejected">Rejected</Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-
+                  <select onChange={handleChangeStatus}>
+                    <option value="Pending">Pending</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Published">Published</option>
+                    <option value="Rejected">Rejected</option>
+                  </select>
                   <Button onClick={() => handleApprove(rowData._id)} appearance="ghost" color="green">
                     Approve
                   </Button>
@@ -210,28 +244,13 @@ const ManageCoursesMain = () => {
           <div className="bg-white p-6 rounded shadow-md w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <h2 className="text-xl font-bold mb-4">Edit Course</h2>
 
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const updatedCourse = {
-                  title: e.target.title.value,
-                  subTitle: e.target.subTitle.value,
-                  description: e.target.description.value,
-                  category: e.target.category.value,
-                  regularPrice: Number(e.target.regularPrice.value),
-                  discountedPrice: Number(e.target.discountedPrice.value),
-                  level: e.target.level.value,
-                };
-                editCourse(selectedCourse._id, updatedCourse);
-                setIsEditModalOpen(false);
-                setIsEditModalOpen(false);
-              }}
-            >
+            <form onSubmit={handleEditSubmit}>
               {/* Title */}
               <div className="mb-4">
                 <label className="block font-medium">Course Title</label>
                 <input
                   type="text"
+                  name='title'
                   defaultValue={selectedCourse.title}
                   className="border border-gray-300 p-2 rounded w-full"
                 />
@@ -242,6 +261,7 @@ const ManageCoursesMain = () => {
                 <label className="block font-medium">Sub Title</label>
                 <input
                   type="text"
+                  name="subTitle"
                   defaultValue={selectedCourse.subTitle}
                   className="border border-gray-300 p-2 rounded w-full"
                 />
@@ -251,6 +271,7 @@ const ManageCoursesMain = () => {
               <div className="mb-4">
                 <label className="block font-medium">Description</label>
                 <textarea
+                  name="description"
                   defaultValue={selectedCourse.description}
                   className="border border-gray-300 p-2 rounded w-full"
                   rows="4"
@@ -260,7 +281,7 @@ const ManageCoursesMain = () => {
               {/* Category */}
               <div className="mb-4">
                 <label className="block font-medium">Category</label>
-                <select defaultValue={selectedCourse.category} className="border border-gray-300 p-2 rounded w-full">
+                <select name="category" defaultValue={selectedCourse.category} className="border border-gray-300 p-2 rounded w-full">
                   <option value="">Choose Category</option>
                   <option value="Frontend Development">Frontend Development</option>
                   <option value="Backend Development">Backend Development</option>
@@ -273,16 +294,18 @@ const ManageCoursesMain = () => {
                 <label className="block font-medium">Price (₦)</label>
                 <input
                   type="number"
+                  name="regularPrice"
                   defaultValue={selectedCourse.regularPrice}
                   className="border border-gray-300 p-2 rounded w-full"
                 />
               </div>
 
-              {/* Regular Price */}
+              {/* Discounted Price */}
               <div className="mb-4">
                 <label className="block font-medium"> Discounted Price (₦)</label>
                 <input
                   type="number"
+                  name="discountedPrice"
                   defaultValue={selectedCourse.discountedPrice}
                   className="border border-gray-300 p-2 rounded w-full"
                 />
@@ -292,6 +315,7 @@ const ManageCoursesMain = () => {
               <div className="mb-4">
                 <label className="block font-medium">Level</label>
                 <select
+                  name="level"
                   defaultValue={selectedCourse.level}
                   className="border border-gray-300 p-2 rounded w-full"
                 >
@@ -307,6 +331,7 @@ const ManageCoursesMain = () => {
                 <label className="block font-medium">Duration (e.g. 6 weeks)</label>
                 <input
                   type="text"
+                  name="duration"
                   defaultValue={selectedCourse.duration}
                   className="border border-gray-300 p-2 rounded w-full"
                 />
@@ -317,6 +342,7 @@ const ManageCoursesMain = () => {
                 <label className="block font-medium">Instructor</label>
                 <input
                   type="text"
+                  name="instructor"
                   defaultValue={selectedCourse.instructor}
                   className="border border-gray-300 p-2 rounded w-full"
                 />
@@ -327,6 +353,7 @@ const ManageCoursesMain = () => {
                 <label className="block font-medium">Thumbnail URL</label>
                 <input
                   type="text"
+                  name="thumbnail"
                   defaultValue={selectedCourse.thumbnail}
                   className="border border-gray-300 p-2 rounded w-full"
                 />
@@ -391,11 +418,11 @@ const ManageCoursesMain = () => {
                           />
                         </div>
                         <div>
-                          <label htmlFor={`lessonVideo_${chapterIndex}_${lessonIndex}`} className="block mb-1 font-semibold text-gray-700">Video:</label>
+                          <label htmlFor={`lessonVideo_${chapterIndex}_${lessonIndex}`} className="block mb-1 font-semibold text-gray-700">Video Link :</label>
                           <input
                             type="text"
                             placeholder="Lesson Video URL"
-                            value={lesson.video}
+                            value={lesson.videoLink}
                             onChange={(e) => handleLessonVideoChange(chapterIndex, lessonIndex, e)}
                             className="w-full border px-2 py-1 rounded"
                           />

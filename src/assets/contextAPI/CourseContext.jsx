@@ -5,8 +5,6 @@ import API_BASE_URL from '../../config';
 
 const CourseContext = createContext({});
 
-// const API_BASE_URL = 'http://localhost:5000/api/courses';
-
 const CourseProvider = ({ children }) => {
     const [courses, setCourses] = useState([]);
     const [instructorCourses, setInstructorCourses] = useState([]);

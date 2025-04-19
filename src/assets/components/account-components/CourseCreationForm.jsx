@@ -13,7 +13,6 @@ const CourseCreationForm = () => {
     subTitle: '',
     description: '',
     category: '',
-    totalDuration: '',
     duration: '',
     video: '',
     regularPrice: '',
@@ -78,7 +77,7 @@ const CourseCreationForm = () => {
 
   const handleLessonVideoChange = (chapterIndex, lessonIndex, event) => {
     const newChapters = [...chapters];
-    newChapters[chapterIndex].lessons[lessonIndex].video = event.target.value;
+    newChapters[chapterIndex].lessons[lessonIndex].videoLink = event.target.value;
     setChapters(newChapters);
   };
 
@@ -113,7 +112,6 @@ const CourseCreationForm = () => {
         subTitle: '',
         description: '',
         category: '',
-        totalDuration: '',
         duration: '',
         video: '',
         regularPrice: '',
@@ -312,7 +310,7 @@ const CourseCreationForm = () => {
                   <input
                     type="text"
                     placeholder="Lesson Video URL"
-                    value={lesson.video}
+                    value={lesson.videoLink}
                     onChange={(e) => handleLessonVideoChange(chapterIndex, lessonIndex, e)}
                     className="w-full border px-2 py-1 rounded"
                   />
