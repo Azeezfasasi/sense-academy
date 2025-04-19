@@ -170,21 +170,6 @@ const CourseProvider = ({ children }) => {
         }
     }, [token]);
 
-    // const updateLessonProgress = useCallback(async (courseId, progressData) => {
-    //     try {
-    //       const response = await axios.post(
-    //         `${API_BASE_URL}/api/courses/${courseId}/progress`,
-    //         progressData,
-    //         {
-    //           headers: { Authorization: `Bearer ${token}` },
-    //         }
-    //       );
-    //       return response.data;
-    //     } catch (error) {
-    //       console.error('Failed to update lesson progress:', error);
-    //       throw error;
-    //     }
-    //   }, [token]);
     const updateLessonProgress = useCallback(async (courseId, lessonId) => {
         try {
           const response = await axios.post(

@@ -38,13 +38,6 @@ function CoursePreviewMain({ courseId }) {
   const course = courses.find((course) => course._id === courseId);
   const chapters = course?.chapters || [];
 
-  // Set the first lesson as the default current lesson
-  // useEffect(() => {
-  //   if (chapters.length > 0 && chapters[0].lessons.length > 0) {
-  //     setCurrentLesson(chapters[0].lessons[0]);
-  //   }
-  // }, [chapters]);
-  // Set the first lesson as the default only if none is selected
   useEffect(() => {
     if (!currentLesson && chapters.length > 0 && chapters[0].lessons.length > 0) {
       setCurrentLesson(chapters[0].lessons[0]);
@@ -140,16 +133,16 @@ function CoursePreviewMain({ courseId }) {
   return (
     <div className="w-full flex flex-col md:flex-row justify-start md:justify-center gap-7 md:gap-0 md:space-x-12 items-start rounded-2xl">
       {/* Course video preview */}
-      <div className="w-full h-[400px] md:w-[60%] relative overflow-hidden">
+      <div className="w-full h-[400px] md:w-[60%] relative overflow-hidden rounded-[10px]">
         {currentLesson ? (
           <ReactPlayer
-            key={currentLesson?._id} // Force re-render when the lesson changes
-            url={currentLesson?.videoLink} // Dynamically update the video URL
+            key={currentLesson?._id} 
+            url={currentLesson?.videoLink}
             controls
             width="100%"
             height="100%"
             className="rounded-md"
-            onEnded={handleNextLesson} // Automatically move to the next lesson when the video ends
+            onEnded={handleNextLesson}
             onProgress={({ played }) => {
               if (played >= 0.9 && !completedLessons.includes(currentLesson._id)) {
                 // Mark the lesson as completed
@@ -231,10 +224,9 @@ function CoursePreviewMain({ courseId }) {
                             ? 'bg-green-100'
                             : 'bg-white'
                         }`}
-                        // onClick={() => setCurrentLesson(lesson)} // Allow manual selection of lessons
                         onClick={() => {
                           console.log("Selected Lesson:", lesson); // Debugging log
-                          setCurrentLesson(lesson); // Update the currentLesson state
+                          setCurrentLesson(lesson);
                         }}
                       >
                         <div className="flex items-center gap-2">

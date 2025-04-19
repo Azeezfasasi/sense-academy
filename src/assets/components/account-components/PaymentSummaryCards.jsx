@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { usePayment } from "@/assets/contextAPI/PaymentContext";
 import { ProfileContext } from "@/assets/contextAPI/ProfileContext"; // Assuming ProfileContext provides user role
 import { Card, Grid, Typography } from "@mui/material";
+import DashboardProgress from "./DashboardProgress";
 
 const PaymentSummaryCards = () => {
   const { studentPayments, adminPayments, fetchStudentPayments, fetchAdminPayments, loading, error } = usePayment();
@@ -29,9 +30,11 @@ const PaymentSummaryCards = () => {
   return (
     <>
     {user?.role === "Student" && (
-    <div className="p-6">
-      <div className="font-bold text-[22px]">Welcome, {user.firstName}</div>
-      <Typography variant="h5" className="mb-6 text-center font-bold">
+    <div className="pb-6 px-2">
+      <div className="font-bold text-[26px] text-blue-600">Welcome, {user.firstName}!</div>
+      <p className="mb-6">It is time to continue learning. Take a step closer to Mastery!</p>
+      <DashboardProgress />
+      <Typography variant="h5" style={{marginBottom: "14px", textAlign: "center", fontWeight: "bold"}}>
         My Payment Summary
       </Typography>
       <Grid container spacing={4}>
@@ -75,19 +78,21 @@ const PaymentSummaryCards = () => {
     )}
 
     {user?.role === "Admin" && (
-    <div className="p-6">
-      <div className="font-bold text-[22px]">Welcome, {user.firstName}</div>
-      <Typography variant="h5" className="mb-6 text-center font-bold">
+    <div className="pb-6 px-2">
+      <div className="font-bold text-[23px] md:text-[26px] text-blue-600">Welcome, {user.firstName}!</div>
+      <p className="mb-6">It is time to continue learning. Take a step closer to Mastery!</p>
+      <DashboardProgress />
+      <Typography variant="h6" style={{marginBottom: "14px", textAlign: "center", fontWeight: "bold"}}>
         Admin Payment Summary
       </Typography>
       <Grid container spacing={4}>
         {/* Total Transactions Card */}
         <Grid item xs={12} md={4}>
-          <Card className="p-6 shadow-lg border border-gray-200 rounded-lg">
-            <Typography variant="h5" className="text-blue-600 font-bold mb-4">
+          <Card className="p-6 flex flex-col items-center shadow-lg border border-gray-200 rounded-lg">
+            <Typography variant="h6" style={{fontWeight: "bold"}} className="text-blue-600 mb-4">
               Total Transactions
             </Typography>
-            <Typography variant="h3" className="text-gray-800 font-bold">
+            <Typography variant="p" style={{fontSize: "38px"}} className="text-gray-800">
               {totalTransactions}
             </Typography>
           </Card>
@@ -95,11 +100,11 @@ const PaymentSummaryCards = () => {
 
         {/* Total Amount Spent Card */}
         <Grid item xs={12} md={4}>
-          <Card className="p-6 shadow-lg border border-gray-200 rounded-lg">
-            <Typography variant="h5" className="text-green-600 font-bold mb-4">
+          <Card className="p-6 flex flex-col items-center shadow-lg border border-gray-200 rounded-lg">
+            <Typography variant="h6" style={{fontWeight: "bold"}} className="text-green-600 mb-4">
               Total Amount Received
             </Typography>
-            <Typography variant="h3" className="text-gray-800 font-bold">
+            <Typography variant="p" style={{fontSize: "38px"}} className="text-gray-800">
               ₦{totalAmountSpent.toLocaleString()}
             </Typography>
           </Card>
@@ -107,11 +112,11 @@ const PaymentSummaryCards = () => {
 
         {/* Total Courses Ordered Card */}
         <Grid item xs={12} md={4}>
-          <Card className="p-6 shadow-lg border border-gray-200 rounded-lg">
-            <Typography variant="h5" className="text-purple-600 font-bold mb-4">
+          <Card className="p-6 flex flex-col items-center shadow-lg border border-gray-200 rounded-lg">
+            <Typography variant="h6" style={{fontWeight: "bold"}} className="text-blue-600 mb-4">
               Total Courses Ordered
             </Typography>
-            <Typography variant="h3" className="text-gray-800 font-bold">
+            <Typography variant="p" style={{fontSize: "38px"}} className="text-gray-800">
               {totalCoursesOrdered}
             </Typography>
           </Card>

@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import courseimage from '../../image/courseimage.svg';
-import { Progress } from 'rsuite';
+import { Progress, Rate } from 'rsuite';
 import { Link } from 'react-router-dom';
-import fiveratings from '../../image/fiveratings.svg';
 import { CourseContext } from '@/assets/contextAPI/CourseContext';
 
 function AccountCourses() {
@@ -41,9 +40,19 @@ function AccountCourses() {
               <div className="text-grey-700 font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight">
                 By {course.createdBy?.firstName} {course.createdBy?.lastName || 'Unknown Instructor'}
               </div>
-              <Progress.Line percent={30} status="active" />
+              {/* Display individual course progress */}
+              <Progress.Line percent={course.progressPercentage || 0} status="active" />
               <div className="flex items-center gap-2">
-                <img src={fiveratings} alt="Ratings" />
+                <div className="w-[60%] border overflow-hidden">
+                  {/* Display individual course rating */}
+                  <Rate
+                    defaultValue={course.rating || 0}
+                    size="sm"
+                    color="yellow"
+                    style={{ width: '100%' }}
+                    readOnly
+                  />
+                </div>
                 <span className="text-grey-700 font-label-font-family text-[11px]">
                   {course.rating || 0} Ratings
                 </span>

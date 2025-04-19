@@ -1,5 +1,6 @@
 import AccountHeader from '@/assets/components/account-components/AccountHeader'
 import AccountMenu from '@/assets/components/account-components/AccountMenu'
+import DashboardProgress from '@/assets/components/account-components/DashboardProgress';
 import PaymentSummaryCards from '@/assets/components/account-components/PaymentSummaryCards';
 import DashboardStats from '@/assets/components/dashboard/DashboardStats';
 import ReviewStats from '@/assets/components/dashboard/ReviewStats';
