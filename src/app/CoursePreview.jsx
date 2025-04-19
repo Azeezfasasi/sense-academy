@@ -2,8 +2,13 @@ import React from 'react'
 import AccountHeader from '../assets/components/account-components/AccountHeader'
 import AccountMenu from '../assets/components/account-components/AccountMenu'
 import CoursePreviewMain from '../assets/components/account-components/CoursePreviewMain'
+import { useParams } from 'react-router-dom';
 
 function CoursePreview() {
+  const { courseId } = useParams(); // Get courseId from route parameters
+
+  // Debugging: Log the courseId
+  console.log('Course ID from route:', courseId);
   return (
     <>
     <AccountHeader />
@@ -12,7 +17,7 @@ function CoursePreview() {
         <AccountMenu />
       </aside>
       <section className="flex flex-col items-start w-full px-4">
-        <CoursePreviewMain />
+        <CoursePreviewMain courseId={courseId} />
       </section>
     </main>
     </>
