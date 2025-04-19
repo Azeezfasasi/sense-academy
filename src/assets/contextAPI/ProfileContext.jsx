@@ -5,7 +5,7 @@ import API_BASE_URL from '../../config';
 
 const ProfileContext = createContext({});
 
-// const API_BASE_URL = 'http://localhost:5000/api/profile';
+// const API_BASE_URL = 'https://sense-academy-backend.onrender.com'
 
 const ProfileProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -79,7 +79,9 @@ const ProfileProvider = ({ children }) => {
     // Log in an existing user
     const login = useCallback(async (email, password) => {
         try {
-            const response = await axios.post(`${API_BASE_URL}/api/profile/login`, { email, password });
+            const response = await axios.post(`${API_BASE_URL}/api/profile/login`, { email, password },
+            { withCredentials: true }
+            );
             const { data } = response;
             setToken(data.token);
             localStorage.setItem('token', data.token);
