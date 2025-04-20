@@ -56,7 +56,7 @@ function CourseDetailsButtons() {
         </Tabs.Tab>
         <Tabs.Tab eventKey="5" title="Reviews">
           <div className="p-0 lg:p-4">
-            <CourseDetailsReview />
+            <CourseDetailsReview courseId={courseId} />
           </div>
         </Tabs.Tab>
       </Tabs>
