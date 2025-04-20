@@ -30,7 +30,7 @@ const CourseProvider = ({ children }) => {
           const response = await axios.get(`${API_BASE_URL}/api/courses/purchased`, {
             headers: { Authorization: `Bearer ${token}` },
           });
-          setCourses(response.data); // Update the courses state with purchased courses
+          setCourses(response.data); 
           return response.data;
         } catch (error) {
           console.error('Failed to fetch purchased courses', error);
