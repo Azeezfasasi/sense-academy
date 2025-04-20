@@ -1,7 +1,10 @@
-import { Accordion, Placeholder, Stack, Avatar } from 'rsuite';
+import React, { useEffect, useState } from 'react';
+import { Accordion, Stack } from 'rsuite';
+import axios from 'axios';
+import API_BASE_URL from '../../../config';
 
-const Header = props => {
-  const { avatarUrl, title, lessonCount, subtitle, ...rest } = props;
+const Header = (props) => {
+  const { title, lessonCount, ...rest } = props;
   return (
     <Stack {...rest} spacing={10}>
       <Stack spacing={2} direction="column" alignItems="flex-start">
@@ -12,77 +15,62 @@ const Header = props => {
   );
 };
 
-const CourseDetailSylabus = () => (
-  <Accordion bordered defaultActiveKey={1}>
-    <Accordion.Panel
-      header={
-        <Header
-          title="Introduction to UX Design"
-          lessonCount="5 Lessons"
-        />
+const CourseDetailSylabus = ({ courseId }) => {
+  const [chapters, setChapters] = useState([]);
+
+  useEffect(() => {
+    const fetchCourseDetails = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/api/courses/${courseId}`);
+        const course = response.data;
+  
+        // Filter chapters to include only those with lessons
+        const filteredChapters = course.chapters.filter((chapter) => chapter.lessons && chapter.lessons.length > 0);
+        setChapters(filteredChapters);
+      } catch (error) {
+        console.error('Failed to fetch course details:', error);
       }
-      eventKey={1}
-    >
-     <ul>
-     <li className='mb-4'>
-        <div className="flex items-center gap-4">
-          <div className='w-[30px] rounded-[3px] px-2'>
-            <i className="fa-solid fa-file rounded"></i>
-          </div>
-          <div className='w-full flex flex-row gap-2 items-center justify-between'>
-            <p className='text-[14px] font-normal'>Start Here First (Important Course Details)</p>
-            <span>00:56</span>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div className="flex items-center gap-4">
-          <div className='w-[30px] px-2'>
-            <i className="fa-solid fa-video rounded"></i>
-          </div>
-          <div className='w-full flex flex-row gap-2 items-center justify-between'>
-            <p className='text-[14px] font-normal'>Introduction to UX Design</p>
-            <span>00:56</span>
-          </div>
-        </div>
-      </li>
-     </ul>
-    </Accordion.Panel>
-    <Accordion.Panel
-      header={
-        <Header
-          title="Basics of User-Centered Design"
-          lessonCount="5 Lessons"
-        />
-      }
-      eventKey={2}
-    >
-      <ul>
-     <li className='mb-4'>
-        <div className="flex items-center gap-4">
-          <div className='w-[30px] rounded-[3px] px-2'>
-            <i className="fa-solid fa-file rounded"></i>
-          </div>
-          <div className='w-full flex flex-row gap-2 items-center justify-between'>
-            <p className='text-[14px] font-normal'>Understanding the Basics of UX Design</p>
-            <span>03:16</span>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div className="flex items-center gap-4">
-          <div className='w-[30px] px-2'>
-            <i className="fa-solid fa-video rounded"></i>
-          </div>
-          <div className='w-full flex flex-row gap-2 items-center justify-between'>
-            <p className='text-[14px] font-normal'>Introduction to UX Design Tools</p>
-            <span>05:23</span>
-          </div>
-        </div>
-      </li>
-     </ul>
-    </Accordion.Panel>
-  </Accordion>
-);
+    };
+  
+    if (courseId) {
+      fetchCourseDetails();
+    } else {
+      console.error('Course ID is undefined');
+    }
+  }, [courseId]);
+
+  return (
+    <Accordion bordered defaultActiveKey={1}>
+      {chapters.map((chapter, index) => (
+        <Accordion.Panel
+          key={chapter._id}
+          header={
+            <Header
+              title={chapter.title}
+              lessonCount={`${chapter.lessons.length} Lessons`}
+            />
+          }
+          eventKey={index + 1}
+        >
+          <ul>
+            {chapter.lessons.map((lesson) => (
+              <li key={lesson._id} className="mb-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-[30px] rounded-[3px] px-2">
+                    <i className="fa-solid fa-file rounded"></i>
+                  </div>
+                  <div className="w-full flex flex-row gap-2 items-center justify-between">
+                    <p className="text-[14px] font-normal">{lesson.title}</p>
+                    <span>{lesson.duration}</span>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Accordion.Panel>
+      ))}
+    </Accordion>
+  );
+};
 
 export default CourseDetailSylabus;

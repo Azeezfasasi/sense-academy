@@ -1,6 +1,7 @@
 import React, {useContext, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import { CourseContext } from '@/assets/contextAPI/CourseContext';
+import CourseDetailSylabus from './CourseDetailSylabus';
 
 function CourseDetailDescription() {
   const { courseId } = useParams();
@@ -28,6 +29,10 @@ function CourseDetailDescription() {
             {course.description}
             </div>
         </div>
+    </div>
+    <div className='mt-3'>
+      <p className='font-bold text-blue-700 text-[18px] md:text-[20px]'>Course Modules</p>
+      <CourseDetailSylabus courseId={courseId} />
     </div>
 
     </>
