@@ -3,9 +3,11 @@ import ratings from '../assets/image/ratings.svg';
 import courseimage from '../assets/image/courseimage.svg';
 import { Link } from 'react-router-dom';
 import { CourseContext } from '../assets/contextAPI/CourseContext';
+import { ProfileContext } from '@/assets/contextAPI/ProfileContext';
 
 function AllCourses() {
     const { courses, fetchAllCourses, loading } = useContext(CourseContext);
+    const { user } = useContext(ProfileContext);
 
     useEffect(() => {
         fetchAllCourses();
@@ -38,7 +40,9 @@ function AllCourses() {
                                 {course.title}
                                 </Link>
                                 <div className="text-grey-700 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
-                                    By Ronald Richards
+                                By {course.createdBy?.firstName && course.createdBy?.lastName
+                                ? `${course.createdBy.firstName} ${course.createdBy.lastName}`
+                                : 'Unknown Instructor'}
                                 </div>
                             </div>
                             <div className="flex flex-row gap-2 items-center justify-start shrink-0 relative">
@@ -49,7 +53,6 @@ function AllCourses() {
                                     />
                                 </div>
                                 <div className="text-grey-700 text-left font-label-font-family text-label-font-size font-label-font-weight relative">
-                                    {/* {course.rating.toFixed(1)} / 5 */}
                                     {Number(course.rating || 0).toFixed(1)} / 5
                                 </div>
                             </div>
@@ -57,8 +60,13 @@ function AllCourses() {
                             {course.duration}
                             </div>
                         </div>
-                        <div className="text-grey-900 text-left font-heading-4-subheading-font-family text-heading-4-subheading-font-size leading-heading-4-subheading-line-height font-heading-4-subheading-font-weight relative">
-                        ₦{course.regularPrice}
+                        <div className='flex flex-row justify-start items-center gap-2'>
+                            <div className="text-grey-900 text-left font-heading-4-subheading-font-family text-heading-4-subheading-font-size leading-heading-4-subheading-line-height font-heading-4-subheading-font-weight relative">
+                            ₦{course.discountedPrice}
+                            </div>
+                            <div className="text-grey-900 text-left font-heading-4-subheading-font-family text-[16px] leading-heading-4-subheading-line-height font-heading-4-subheading-font-weight relative line-through">
+                            ₦{course.regularPrice}
+                            </div>
                         </div>
                     </div>
                 </div>

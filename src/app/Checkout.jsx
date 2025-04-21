@@ -44,7 +44,7 @@ function Checkout() {
   const [appliedCoupon, setAppliedCoupon] = useState(null);
 
   // Calculate total price
-  const totalPrice = cartItems.reduce((sum, item) => sum + (item.regularPrice || 0), 0);
+  const totalPrice = cartItems.reduce((sum, item) => sum + (item.discountedPrice || 0), 0);
 
   // Calculate discount amount
   const discountAmount = appliedCoupon

@@ -53,10 +53,12 @@ function CourseIntroVid() {
         <div className="w-[90%] flex flex-col gap-6 items-start justify-start mt-4">
           <div className="flex flex-row gap-[13px] items-center justify-center">
             <div className="text-grey-900 font-bold text-xl">
-              ₦{course.regularPrice}
+              {/* ₦{course.regularPrice} */}
+              ₦{course.discountedPrice}
             </div>
             <div className="text-grey-900 line-through font-semibold text-lg">
-              ₦{course.discountedPrice}
+              {/* ₦{course.discountedPrice} */}
+              ₦{course.regularPrice}
             </div>
           </div>
 

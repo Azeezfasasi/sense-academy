@@ -19,7 +19,7 @@ function CheckoutOrderDetails({ cartItems, appliedCoupon, setAppliedCoupon, tota
           <div className="flex flex-col gap-1 items-start justify-start">
             <div className="text-primary-600">{item.category || 'Design'}</div>
             <div className="text-grey-900">{item.title}</div>
-            <div className="text-grey-900">₦{item.regularPrice || '0.00'}</div>
+            <div className="text-grey-900">₦{item.discountedPrice || '0.00'}</div>
           </div>
         </div>
       ))}

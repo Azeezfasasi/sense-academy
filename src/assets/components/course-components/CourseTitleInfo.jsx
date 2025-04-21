@@ -115,11 +115,13 @@ function CourseTitleInfo() {
           <div className="w-[90%] flex flex-col gap-6 items-start justify-start mt-4">
             <div className="flex flex-row gap-[13px] items-center justify-center shrink-0 relative py-0">
               <div className="text-grey-900 text-left font-heading-3-font-family text-[20px] lg:text-[24px] leading-heading-3-line-height font-heading-3-font-weight relative">
-              ₦{course.regularPrice}
+              {/* ₦{course.regularPrice} */}
+              ₦{course.discountedPrice}
               </div>
               <div className="shrink-0 w-[59px] h-[29px] static">
                 <div className="text-grey-900 text-left font-heading-5-subheading-font-family text-[15px] lg:text-[18px] leading-heading-5-subheading-line-height font-heading-5-subheading-font-weight line-through">
-                ₦{course.discountedPrice}
+                {/* ₦{course.discountedPrice} */}
+                ₦{course.regularPrice}
                 </div>
               </div>
             </div>

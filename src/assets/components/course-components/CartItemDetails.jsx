@@ -14,7 +14,7 @@ function CartItemDetails() {
   }
 
   // Calculate total price
-  const total = cartItems.reduce((sum, course) => sum + parseFloat(course.regularPrice || 0), 0);
+  const total = cartItems.reduce((sum, course) => sum + parseFloat(course.discountedPrice || 0), 0);
 
   return (
     <div className="flex flex-col lg:flex-row w-full gap-6 px-4">
@@ -46,7 +46,7 @@ function CartItemDetails() {
                 </div>
               </div>
               <div className="text-black text-lg font-semibold">
-                ₦{item.regularPrice}
+                ₦{item.discountedPrice}
               </div>
             </div>
           </div>
