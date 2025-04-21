@@ -46,13 +46,13 @@ function CourseDetailsReview() {
     }
   };
 
-//   if (loading) {
-//     return <div>Loading reviews...</div>;
-//   }
+  // if (loading) {
+  //   return <div>Loading reviews...</div>;
+  // }
 
-if (!user) {
-    return alert("User must be logged in to add a review.");
-  } 
+// if (!user) {
+//     return alert("User must be logged in to add a review.");
+//   } 
 
   if (error) {
     return <div>Error loading reviews: {error}</div>;

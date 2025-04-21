@@ -31,7 +31,7 @@ function CourseDetailDescription() {
         </div>
     </div>
     <div className='mt-3'>
-      <p className='font-bold text-blue-700 text-[18px] md:text-[20px]'>Course Modules</p>
+      <p className='font-bold text-blue-700 text-[18px] md:text-[20px]'>What You Will Learn:</p>
       <CourseDetailSylabus courseId={courseId} />
     </div>
 
