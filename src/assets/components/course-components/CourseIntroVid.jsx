@@ -46,8 +46,8 @@ function CourseIntroVid() {
   return (
     <>
       <div className="hidden bg-white rounded-2xl shadow-md w-[90%] relative overflow-hidden lg:flex flex-col justify-start items-center mx-auto mt-[20px] pb-7">
-        <div className='w-full h-[200px] relative overflow-hidden border-2 border-solid border-red-700'>
-          <ReactPlayer url={videoSrc} controls width="100%" height="100%" className="rounded-md" />
+        <div className='w-full h-[200px] relative overflow-hidden'>
+          <img src={course.introImage} alt={course.introImage} className='w-full h-full' />
         </div>
 
         <div className="w-[90%] flex flex-col gap-6 items-start justify-start mt-4">

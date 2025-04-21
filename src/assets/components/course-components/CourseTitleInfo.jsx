@@ -55,13 +55,7 @@ function CourseTitleInfo() {
     <div>
       <div className="lg:hidden bg-white rounded-2xl shadow-md w-[100%] relative overflow-hidden flex flex-col justify-start items-center mx-auto mb-[10px] pb-0">
           <div className='w-full h-[220px] relative overflow-hidden' >
-            <ReactPlayer
-              url={videoSrc}
-              controls
-              width="100%"
-              height="100%"
-              className="rounded-md"
-            />
+            <img src={course.introImage} alt={course.introImage} className='w-full h-full object-fill' />
           </div>
       </div>
 

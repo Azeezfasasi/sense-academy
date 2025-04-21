@@ -23,15 +23,17 @@ function MyBreadcrumb({ separator }) {
   const course = courses.find((c) => c._id === courseId); // ✅ get one course
 
   return (
-    <Breadcrumb separator={separator}>
-      <Breadcrumb.Item>
-        <Link to="/" className='text-[16px] mr-2'><i className="fa-solid fa-house text-blue-700"></i></Link>
-      </Breadcrumb.Item>
-      <Breadcrumb.Item>
-        <Link to="/app/coursecategory" className='text-[16px] mr-2 ml-2'>Courses</Link>
-      </Breadcrumb.Item>
-      <Breadcrumb.Item active className='text-[16px] ml-2'>{course?.title} </Breadcrumb.Item>
-    </Breadcrumb>
+    <div className='mt-[50px] md:mt-0'>
+      <Breadcrumb separator={separator}>
+        <Breadcrumb.Item>
+          <Link to="/" className='text-[16px] mr-2'><i className="fa-solid fa-house text-blue-700"></i></Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <Link to="/app/coursecategory" className='text-[14px] md:text-[16px] mr-2 ml-2'>Courses</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item active className='text-[14px] md:text-[16px] ml-2'>{course?.title} </Breadcrumb.Item>
+      </Breadcrumb>
+    </div>
   )
 }
 
@@ -45,7 +47,7 @@ function CourseSingle() {
       </div>
     </div>
     <div className='flex flex-col-reverse lg:flex-row justify-start lg:justify-between w-full p-1 lg:p-2 m-0 mx-auto'>
-      <div className='flex flex-col w-full lg:w-[70%] p-2 lg:px-4'>
+      <div className='flex flex-col w-full lg:w-[70%] p-2 lg:px-4 mt-10 md:mt-0'>
         <CourseTitleInfo />
         <CourseDetailsButtons />
       </div>

@@ -36,7 +36,6 @@ function CourseDetailsReview() {
     try {
       const response = await addReview(courseId, reviewData);
       console.log('Review added:', response);
-      // Optionally clear the form and refetch reviews
       setNewRating(5);
       setNewReviewText('');
       fetchReviews(courseId);
