@@ -87,9 +87,13 @@ function CourseTitleInfo() {
                   </div>
                   <div className="bg-grey-700 shrink-0 w-px h-4 relative"></div>
                   <div className="text-grey-700 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
+                  {course.level || 'All Levels'}
+                  </div>
+                  <div className="bg-grey-700 shrink-0 w-px h-4 relative"></div>
+                  <div className="text-grey-700 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
                    {course.duration}
                   </div>
-              </div>
+              </div>              
               <div className="flex flex-row gap-2 items-center justify-start shrink-0 relative">
                   <img
                       className="rounded-[50%] shrink-0 w-10 h-10 relative"

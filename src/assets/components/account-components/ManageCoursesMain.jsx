@@ -38,26 +38,6 @@ const ManageCoursesMain = () => {
     setIsEditModalOpen(true);
   };
 
-  // const handleEditSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const updatedCourse = {
-  //     title: e.target.title.value,
-  //     subTitle: e.target.subTitle.value,
-  //     description: e.target.description.value,
-  //     category: e.target.category.value,
-  //     regularPrice: Number(e.target.regularPrice.value),
-  //     discountedPrice: Number(e.target.discountedPrice.value),
-  //     level: e.target.level.value,
-  //     duration: e.target.duration.value,
-  //     instructor: e.target.instructor.value,
-  //     thumbnail: e.target.thumbnail.value,
-  //     introVideo: formData.introVideo,
-  //     introImage: formData.introImage?.path || formData.introImage,
-  //     chapters,
-  //   };
-  //   await editCourse(selectedCourse._id, updatedCourse);
-  //   setIsEditModalOpen(false);
-  // };
   const handleEditSubmit = async (e) => {
     e.preventDefault();
   
@@ -116,22 +96,11 @@ const ManageCoursesMain = () => {
     setChapters([...chapters, { title: '', lessons: [] }]);
   };
 
-  // const handleLessonTitleChange = (chapterIndex, lessonIndex, field, value) => {
-  //   const newChapters = [...chapters];
-  //   newChapters[chapterIndex].lessons[lessonIndex][field] = value;
-  //   setChapters(newChapters);
-  // };
   const handleLessonTitleChange = (chapterIndex, lessonIndex, event) => {
     const newChapters = [...chapters];
     newChapters[chapterIndex].lessons[lessonIndex].title = event.target.value;
     setChapters(newChapters);
   };
-
-  // const handleChapterTitleChange = (chapterIndex, field, value) => {
-  //   const newChapters = [...chapters];
-  //   newChapters[chapterIndex][field] = value;
-  //   setChapters(newChapters);
-  // };
 
   const handleChapterTitleChange = (index, event) => {
     const newChapters = [...chapters];
@@ -208,7 +177,7 @@ const ManageCoursesMain = () => {
           <Cell dataKey="_id">{(_, rowIndex) => page * limit - limit + rowIndex + 1}</Cell>
         </Column>
 
-        <Column width={200}>
+        <Column width={300}>
           <HeaderCell>Course Name</HeaderCell>
           <Cell dataKey="title" />
         </Column>

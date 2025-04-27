@@ -41,7 +41,7 @@ function CourseIntroVid() {
     return <div className="text-center mt-10">Course not found</div>;
   }
 
-  const videoSrc = course.videoUrl || 'https://vimeo.com/1074814552/cdaf0e228c';
+  // const videoSrc = course.videoUrl || 'https://vimeo.com/1074814552/cdaf0e228c';
 
   return (
     <>

@@ -63,12 +63,9 @@ function TopCourses() {
                       </div>
                     </div>
                     <div className="text-grey-700 text-left font-small-text-font-family text-small-text-font-size leading-small-text-line-height font-small-text-font-weight relative">
-                      {course.duration || 'N/A'} Total Hours. {course.lectures || 'N/A'} Lectures. {course.level || 'All Levels'}
+                    {course.level || 'All Levels'} - {course.duration || 'N/A'}
                     </div>
                   </div>
-                  {/* <div className="text-grey-900 text-left font-heading-4-subheading-font-family text-heading-4-subheading-font-size leading-heading-4-subheading-line-height font-heading-4-subheading-font-weight relative">
-                    ₦{course.regularPrice || '0.00'}
-                  </div> */}
                   <div className='flex flex-row justify-start items-center gap-2'>
                       <div className="text-grey-900 text-left font-heading-4-subheading-font-family text-heading-4-subheading-font-size leading-heading-4-subheading-line-height font-heading-4-subheading-font-weight relative">
                       ₦{course.discountedPrice}

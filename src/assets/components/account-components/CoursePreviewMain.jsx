@@ -202,7 +202,7 @@ function CoursePreviewMain({ courseId }) {
                   )
                 }
               >
-                <span className="font-semibold text-lg">{chapter.title}</span>
+                <span className="font-semibold text-[15px]">{chapter.title}</span>
                 <span>{expandedChapter === chapterIndex ? '-' : '+'}</span>
               </div>
 

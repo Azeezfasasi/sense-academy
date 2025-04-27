@@ -30,9 +30,17 @@ export const ReviewProvider = ({ children }) => {
   // 🟨 Add a new review
   const addReview = async (courseId, reviewData) => {
     try {
-      const res = await axios.post(`${API_BASE_URL}/api/reviews/courses/${courseId}/reviews`, reviewData, {
-        withCredentials: true,
-      });
+      const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+      const res = await axios.post(
+        `${API_BASE_URL}/api/reviews/courses/${courseId}/reviews`,
+        reviewData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+          },
+          withCredentials: true,
+        }
+      );
       return res.data;
     } catch (err) {
       throw new Error(err.response?.data?.message || 'Failed to add review');

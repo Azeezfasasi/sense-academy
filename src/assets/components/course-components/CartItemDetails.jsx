@@ -45,8 +45,13 @@ function CartItemDetails() {
                   </button>
                 </div>
               </div>
-              <div className="text-black text-lg font-semibold">
-                ₦{item.discountedPrice}
+              <div className='flex flex-row items-center justify-start gap-3'>
+                <div className="text-black text-lg font-semibold">
+                  ₦{item.discountedPrice}
+                </div>
+                <div className="text-gray-600 text-[14px] md:text-[14px] font-semibold line-through">
+                  ₦{item.regularPrice}
+              </div>
               </div>
             </div>
           </div>
@@ -81,7 +86,7 @@ function CartItemDetails() {
               </div>
             </div>
           </div>
-          <Link to="/app/checkout" className="w-full bg-slate-800 text-white text-center py-3 rounded-lg font-medium hover:bg-slate-700 transition">
+          <Link to="/app/checkout" className="w-full bg-slate-800 text-white text-center py-3 rounded-lg font-medium hover:bg-slate-700 hover:text-white transition no-underline hover:no-underline">
             Proceed to Checkout
           </Link>
         </div>

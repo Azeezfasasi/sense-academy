@@ -9,8 +9,8 @@ ProfileContext
 
 function CourseDetailsReview() {
   const { courseId } = useParams();
-  const { reviews, loading, error, fetchReviews, addReview } = useReview();
-  const { user } = useContext(ProfileContext); // Get user info if available
+  const { reviews, loading: reviewsLoading, error, fetchReviews, addReview } = useReview();
+  const { user, loading: userLoading } = useContext(ProfileContext); // Get user info if available
   const [newRating, setNewRating] = useState(5);
   const [newReviewText, setNewReviewText] = useState('');
 
@@ -22,17 +22,19 @@ function CourseDetailsReview() {
 
   const handleAddReview = async (e) => {
     e.preventDefault();
-    if (!user?.id) {
-      // Handle case where user is not logged in (e.g., show a message)
+    console.log('Course ID:', courseId);
+
+    if (!user?._id) {
       console.error('User must be logged in to add a review.');
+      alert('You must be logged in to add a review.');
       return;
     }
-
+  
     const reviewData = {
       rating: newRating,
       review: newReviewText,
     };
-
+  
     try {
       const response = await addReview(courseId, reviewData);
       console.log('Review added:', response);
@@ -41,17 +43,21 @@ function CourseDetailsReview() {
       fetchReviews(courseId);
     } catch (err) {
       console.error('Error adding review:', err.message);
-      // Optionally show an error message to the user
+      if (err.message === 'Not authorized') {
+        alert('You are not authorized to add a review. Please log in.');
+      } else {
+        alert('Failed to add review. Please try again.');
+      }
     }
   };
 
-  // if (loading) {
-  //   return <div>Loading reviews...</div>;
+  // if (userLoading || reviewsLoading) {
+  //   return <div>Loading...</div>;
   // }
 
-// if (!user) {
-//     return alert("User must be logged in to add a review.");
-//   } 
+  if (!user) {
+    return <div>Please log in to add a review.</div>;
+  }
 
   if (error) {
     return <div>Error loading reviews: {error}</div>;
@@ -73,7 +79,6 @@ function CourseDetailsReview() {
 
   return (
     <>
-      {/* Add Review section */}
       <div className="w-full flex flex-col lg:flex-row gap-8 lg:gap-[30px] items-start justify-start shrink-0 relative overflow-x-hidden">
         {/* Rating percentages */}
         <div className="flex flex-col gap-4 items-start justify-start shrink-0 relative">
@@ -109,39 +114,40 @@ function CourseDetailsReview() {
         {/* Rating Review */}
         <div className="w-[100%] flex flex-col gap-4 items-start justify-start shrink-0 relative">
           {reviews.map((review) => (
-            <div
-              className="flex flex-col items-start bg-white rounded-2xl border-solid border-grey-border border relative overflow-hidden p-2 w-full lg:w-[78%]"
-              key={review._id}
-            >
+            <div className="flex flex-col items-start bg-white rounded-2xl border-solid border-grey-border border relative overflow-hidden p-2 w-full lg:w-[78%]" key={review._id}>
+              {/* User Profile Image and Name */}
               <div className="flex flex-row gap-3 items-center justify-start">
-                <img
-                  className="rounded-[50%] shrink-0 w-[60px] h-[60px] relative"
-                  style={{ objectFit: "cover" }}
-                  src={profileimage} // Replace with actual user profile image if available
-                  alt={`Profile of ${review.user?.firstName} ${review.user?.lastName}`}
-                />
-                <div className="text-grey-900 text-left font-heading-5-subheading-font-family text-heading-5-subheading-font-size leading-heading-5-subheading-line-height font-heading-5-subheading-font-weight relative w-[200px] flex items-center justify-start">
-                  {review.user?.firstName} {review.user?.lastName}
+                <div className="w-full flex flex-row gap-4 items-center justify-start shrink-0 relative">
+                  <img
+                    className="rounded-[50%] shrink-0 w-[60px] h-[60px] relative"
+                    style={{ objectFit: "cover" }}
+                    src={review.user?.profileImage}
+                    alt={`Profile of ${review.user?.firstName} ${review.user?.lastName}`}
+                  />
+                  {/* Star rating and Name */}
+                  <div className='flex flex-col gap-0 items-start justify-start relative'>
+                    <div className="flex flex-row gap-1 items-center justify-start shrink-0 relative">
+                      <div className="flex flex-row gap-0 items-center justify-start shrink-0 relative">
+                        <img
+                          className="shrink-0 w-[19.2px] h-[19.2px] relative overflow-visible"
+                          src={star}
+                          alt="Star icon"
+                        />
+                      </div>
+                      <div className="text-grey-900 text-left font-heading-5-subheading-font-family text-[16px] leading-heading-5-subheading-line-height font-heading-5-subheading-font-weight relative flex items-center justify-start">
+                        {review.rating.toFixed(1)}
+                      </div>
+                    </div>
+                    <div className="text-grey-900 text-left font-heading-5-subheading-font-family text-[16px] leading-heading-5-subheading-line-height font-heading-5-subheading-font-weight relative w-full flex items-center justify-start">
+                        {review.user?.firstName} {review.user?.lastName}
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col gap-2 items-start justify-start shrink-0 relative w-full">
-                <div className="flex flex-row gap-1 items-center justify-start shrink-0 relative">
-                  <div className="flex flex-row gap-0 items-center justify-start shrink-0 relative">
-                    <img
-                      className="shrink-0 w-[19.2px] h-[19.2px] relative overflow-visible"
-                      src={star}
-                      alt="Star icon"
-                    />
-                  </div>
-                  <div className="text-grey-900 text-left font-heading-5-subheading-font-family text-heading-5-subheading-font-size leading-heading-5-subheading-line-height font-heading-5-subheading-font-weight relative flex items-center justify-start">
-                    {review.rating.toFixed(1)}
-                  </div>
-                </div>
-                <div className="text-grey-700 text-left text-[14px] leading-[150%] font-[400] relative flex items-start justify-start">
+                <div className='w-full mt-[10px]'>{review.comment}</div>
+                <div className="w-[75%] text-grey-700 text-[12px] font-[400] relative flex items-start justify-end italic">
                   Reviewed on {new Date(review.createdAt).toLocaleDateString()}
-                </div>
-                <div className='w-ful'>
-                  {review.review}
                 </div>
               </div>
             </div>
