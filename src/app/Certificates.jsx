@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 import AccountHeader from '../assets/components/account-components/AccountHeader'
 import AccountMenu from '../assets/components/account-components/AccountMenu'
 import CourseCertificateMain from '@/assets/components/account-components/CourseCertificateMain';
 import CertificateLists from '@/assets/components/account-components/CertificateLists';
 
-function Certificates() {
+function Certificates({ courseId}) {
+  const [selectedCertificate, setSelectedCertificate] = useState(null);
   return (
     <>
     <AccountHeader />
@@ -13,8 +14,8 @@ function Certificates() {
         <AccountMenu />
       </aside>
       <section className="w-full px-4">
-        <CertificateLists />
-        <CourseCertificateMain />
+        <CertificateLists onSelectCertificate={setSelectedCertificate} />
+        <CourseCertificateMain courseId={courseId} />
       </section>
     </main>
     </>
