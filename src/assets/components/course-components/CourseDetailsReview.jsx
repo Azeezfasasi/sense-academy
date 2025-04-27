@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Rate } from 'rsuite';
 import star from '../../image/star.svg';
-import profileimage from '../../image/profileimage.svg';
 import { useParams } from 'react-router-dom';
 import { useReview } from '../../contextAPI/ReviewContext';
 import { ProfileContext } from '@/assets/contextAPI/ProfileContext';
@@ -51,17 +50,9 @@ function CourseDetailsReview() {
     }
   };
 
-  // if (userLoading || reviewsLoading) {
-  //   return <div>Loading...</div>;
+  // if (error) {
+  //   return <div>Error loading reviews: {error}</div>;
   // }
-
-  if (!user) {
-    return <div>Please log in to add a review.</div>;
-  }
-
-  if (error) {
-    return <div>Error loading reviews: {error}</div>;
-  }
 
   // Calculate average rating and rating percentages (you might need to adjust based on your backend response)
   const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
@@ -112,7 +103,7 @@ function CourseDetailsReview() {
         </div>
 
         {/* Rating Review */}
-        <div className="w-[100%] flex flex-col gap-4 items-start justify-start shrink-0 relative">
+        <div className="w-[85%] flex flex-col gap-4 items-start justify-start shrink-0 relative">
           {reviews.map((review) => (
             <div className="flex flex-col items-start bg-white rounded-2xl border-solid border-grey-border border relative overflow-hidden p-2 w-full lg:w-[78%]" key={review._id}>
               {/* User Profile Image and Name */}

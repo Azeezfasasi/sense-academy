@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import ReviewStats from '../dashboard/ReviewStats';
 import ReviewSettings from './ReviewSettings';
+import AdminReviews from '../account-components/AdminReview';
 
 const tabs = [
-  'Commission',
   'Reviews',
+  'Commission',
   'Certificate',
   'Chapters',
   'Promotion',
@@ -13,18 +14,19 @@ const tabs = [
 ];
 
 const CourseSettingsHeader = () => {
-  const [activeTab, setActiveTab] = useState('Commission');
+  const [activeTab, setActiveTab] = useState('Reviews');
 
   const renderTabContent = () => {
     switch (activeTab) {
-      case 'Commission':
-        return <div>
-            
-        </div>;
       case 'Reviews':
         return <div>
             <ReviewStats />
-            <ReviewSettings />
+            {/* <ReviewSettings /> */}
+            <AdminReviews />
+        </div>;
+      case 'Commission':
+        return <div>
+            
         </div>;
       case 'Certificate':
         return <div>Customer content goes here</div>;
