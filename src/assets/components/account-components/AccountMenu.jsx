@@ -61,14 +61,14 @@ const AccountMenu = () => {
               <div className="text-grey-900 text-left font-heading-4-subheading-font-family text-heading-4-subheading-font-size leading-heading-4-subheading-line-height font-heading-4-subheading-font-weight relative flex items-center justify-start">
               {user.firstName} {user.lastName}
               </div>
-              <button className="bg-white rounded-lg border-solid border-grey-border border pt-2.5 pr-6 pb-2.5 pl-6 flex flex-row gap-1.5 items-center justify-center shrink-0 h-12 relative">
+              <Link to="/app/profile" className="bg-white rounded-lg border-solid border-grey-border border pt-2.5 pr-6 pb-2.5 pl-6 flex flex-row gap-1.5 items-center justify-center shrink-0 h-12 relative no-underline hover:no-underline">
                   <div className="text-grey-900 text-left font-button-text-font-family text-button-text-font-size leading-button-text-line-height font-button-text-font-weight relative">
-                      Share Profile
+                      Update Profile
                   </div>
                   <img className="shrink-0 w-6 h-6 relative overflow-visible"
                       src={share}
                   />
-              </button>
+              </Link>
             </div>
             <div
                 className="border-solid border-grey-border border-t border-r-[0] border-b-[0] border-l-[0] shrink-0 w-[274px] h-0 relative"
@@ -87,7 +87,6 @@ const AccountMenu = () => {
             <Nav.Item as={Link} to="/app/message" eventKey="4" icon={<EmailIcon />}>
               Notification
             </Nav.Item>
-
             {user?.role === "Admin" && (
             <Nav.Item as={Link} to="/app/message" eventKey="4" icon={<EmailIcon />}>
               Send Notification
@@ -142,7 +141,7 @@ const AccountMenu = () => {
               </Nav.Menu>
             )}
 
-            {user?.role === "Student" && (
+            {["Student"].includes(user?.role) && (
             <Nav.Item as={Link} to="/app/studentpaymenthistory" eventKey="10" icon={<CheckOutlineIcon />}>
               Payment History
             </Nav.Item>

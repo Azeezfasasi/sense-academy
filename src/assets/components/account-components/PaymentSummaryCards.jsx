@@ -29,7 +29,7 @@ const PaymentSummaryCards = () => {
 
   return (
     <>
-    {user?.role === "Student" && (
+    {["Instructor", "Student"].includes(user?.role) && (
     <div className="pb-6 px-2">
       <div className="font-bold text-[26px] text-blue-600">Welcome, {user.firstName}!</div>
       <p className="mb-6">It is time to continue learning. Take a step closer to Mastery!</p>

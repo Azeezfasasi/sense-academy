@@ -69,14 +69,14 @@ const MobileMenu = () => {
                   <div className="text-grey-900 text-left font-heading-4-subheading-font-family text-heading-4-subheading-font-size leading-heading-4-subheading-line-height font-heading-4-subheading-font-weight relative flex items-center justify-start">
                     {user.firstName} {user.lastName}
                   </div>
-                  <button className="bg-white rounded-lg border-solid border-grey-border border pt-2.5 pr-6 pb-2.5 pl-6 flex flex-row gap-1.5 items-center justify-center shrink-0 h-12 relative">
+                  <Link to="/app/profile" className="bg-white rounded-lg border-solid border-grey-border border pt-2.5 pr-6 pb-2.5 pl-6 flex flex-row gap-1.5 items-center justify-center shrink-0 h-12 relative no-underline hover:no-underline">
                       <div className="text-grey-900 text-left font-button-text-font-family text-[12px] md:text-[14px] leading-button-text-line-height font-button-text-font-weight relative">
                           Share Profile
                       </div>
                       <img className="shrink-0 w-4 md:w-6 h-4 md:h-6 relative overflow-visible"
                           src={share}
                       />
-                  </button>
+                  </Link>
                 </div>
                 <div className="border-solid border-grey-border border-t border-r-[0] border-b-[0] border-l-[0] shrink-0 w-[274px] h-0 relative"></div>
               </div>
@@ -101,6 +101,7 @@ const MobileMenu = () => {
                 </Nav.Item>
 
                 {/* For Courses */}
+                {user?.role === "Admin" && (
                 <Nav.Menu placement="rightStart" eventKey="7" title="Manage Courses" icon={<StorageIcon />} >
                   <Nav.Item as={Link} to="/app/managecourses" eventKey="7-1">
                     Manage Courses
@@ -112,8 +113,10 @@ const MobileMenu = () => {
                     Course Settings
                   </Nav.Item>
                 </Nav.Menu>
+                )}
 
                 {/* For User Management */}
+                {user?.role === "Admin" && (
                 <Nav.Menu placement="rightStart" eventKey="8" title="Manage Users" icon={<PeoplesMapIcon />} >
                   <Nav.Item as={Link} to="/app/manageusers" eventKey="8-1">
                     All Users
@@ -125,8 +128,10 @@ const MobileMenu = () => {
                     User Role
                   </Nav.Item>
                 </Nav.Menu>
+                )}
 
                 {/* For Coupon Management */}
+                {user?.role === "Admin" && (
                 <Nav.Menu placement="rightStart" eventKey="9" title="Manage Coupons" icon={<DonutChartIcon />} >
                   <Nav.Item as={Link} to="/app/managecoupons" eventKey="9-1">
                     All Coupons
@@ -135,6 +140,7 @@ const MobileMenu = () => {
                     Create a Coupon
                   </Nav.Item>
                 </Nav.Menu>
+                )}
 
                 {user?.role === "Student" && (
                 <Nav.Item as={Link} to="/app/studentpaymenthistory" eventKey="10" icon={<CheckOutlineIcon />}>
