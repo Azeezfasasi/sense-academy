@@ -18,6 +18,7 @@ import share from '../../image/share.svg';
 import { Menu, X } from 'lucide-react';
 import { ProfileContext } from '@/assets/contextAPI/ProfileContext';
 import LogoutComponent from './LogoutComponent';
+import profileplaceholder from '../../image/profileplaceholder.png';
 
 const MobileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,14 +65,14 @@ const MobileMenu = () => {
               <div className="bg-grey-background rounded-2xl pt-6 pb-6 flex flex-col gap-6 items-center justify-start relative overflow-x-hidden">
                 <div className="flex flex-col gap-4 items-center justify-start shrink-0 relative mt-10">
                   <img className="rounded-[50%] shrink-0 w-20 lg:w-40 h-20 lg:h-40 relative"
-                  src={user.profileImage || profileimage}
+                  src={user.profileImage || profileplaceholder}
                   />
                   <div className="text-grey-900 text-left font-heading-4-subheading-font-family text-heading-4-subheading-font-size leading-heading-4-subheading-line-height font-heading-4-subheading-font-weight relative flex items-center justify-start">
                     {user.firstName} {user.lastName}
                   </div>
                   <Link to="/app/profile" className="bg-white rounded-lg border-solid border-grey-border border pt-2.5 pr-6 pb-2.5 pl-6 flex flex-row gap-1.5 items-center justify-center shrink-0 h-12 relative no-underline hover:no-underline">
                       <div className="text-grey-900 text-left font-button-text-font-family text-[12px] md:text-[14px] leading-button-text-line-height font-button-text-font-weight relative">
-                          Share Profile
+                          Update Profile
                       </div>
                       <img className="shrink-0 w-4 md:w-6 h-4 md:h-6 relative overflow-visible"
                           src={share}

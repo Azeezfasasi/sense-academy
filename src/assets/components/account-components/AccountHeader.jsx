@@ -9,6 +9,7 @@ import HamburgerMenu from './MobileMenu';
 import { Button, Menu, Portal, CloseButton, Dialog } from "@chakra-ui/react"
 import { ProfileContext } from '@/assets/contextAPI/ProfileContext';
 import LogoutComponent from './LogoutComponent';
+import profileplaceholder from '../../image/profileplaceholder.png';
 
 function AccountHeader() {
     const { user, loading, logout } = useContext(ProfileContext);
@@ -74,7 +75,7 @@ function AccountHeader() {
             <Menu.Root>
                 <Menu.Trigger asChild>
                     <Button variant="outline" size="sm">
-                        <img src={user.profileImage || profileimage} alt="" className='w-10 h-10 rounded-[50%]'/>
+                        <img src={user.profileImage || profileplaceholder} alt="" className='w-10 h-10 rounded-[50%]'/>
                         <div className='flex flex-col items-start gap-0'>
                             <p className='text-[13px] md:text-[14px] mb-[-10px] font-[600]'>{user.firstName} {user.lastName}</p>
                             <p className='text-[13px] md:text-[14px] font-thin'>{user.role}</p>

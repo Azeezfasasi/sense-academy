@@ -13,10 +13,10 @@ import DonutChartIcon from '@rsuite/icons/DonutChart';
 import CheckOutlineIcon from '@rsuite/icons/CheckOutline';
 import DashboardIcon from '@rsuite/icons/Dashboard';
 import 'rsuite/dist/rsuite.min.css';
-import profileimage from '../../image/profileimage.svg';
 import share from '../../image/share.svg';
 import { ProfileContext } from '@/assets/contextAPI/ProfileContext';
 import LogoutComponent from './LogoutComponent';
+import profileplaceholder from '../../image/profileplaceholder.png';
 
 const AccountMenu = () => {
   const { user, loading } = useContext(ProfileContext);
@@ -56,7 +56,7 @@ const AccountMenu = () => {
           <div className="bg-grey-background rounded-2xl pt-6 pb-6 flex flex-col gap-6 items-center justify-start relative">
             <div className="flex flex-col gap-4 items-center justify-start shrink-0 relative">
               <img className="rounded-[50%] shrink-0 w-40 h-40 relative"
-                      src={user.profileImage || profileimage}
+                      src={user.profileImage || profileplaceholder}
                       />
               <div className="text-grey-900 text-left font-heading-4-subheading-font-family text-heading-4-subheading-font-size leading-heading-4-subheading-line-height font-heading-4-subheading-font-weight relative flex items-center justify-start">
               {user.firstName} {user.lastName}
